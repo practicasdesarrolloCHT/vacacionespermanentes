@@ -39,6 +39,12 @@ app.factory('posts', ['$http', 'auth', function($http, auth){
           comment.upvotes += 1;
         });
   };
+  o.gotoHomePage = function(){
+    window.location='/#/home'
+  }
+  o.numberOfComments = function(post){
+    return post.numberOfComments();
+  }
   return o;
 }
 ]);

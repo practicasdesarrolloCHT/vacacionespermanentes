@@ -6,6 +6,10 @@ function($scope,posts,auth){
   $scope.test = 'Posts';
   $scope.posts = posts.posts;
   $scope.isLoggedIn = auth.isLoggedIn;
+  //
+  $scope.sort = "upvotes";
+  $scope.reverse = false;
+  //
   $scope.addPost = function(){
   	if(!$scope.title || $scope.title === '') { return; }
   	posts.create({
@@ -18,5 +22,16 @@ function($scope,posts,auth){
   $scope.incrementUpvotes = function(post) {
     posts.upvote(post);
   };
+  $scope.numberOfComments = function(post){
+    posts.numberOfComments(post)
+  }
+  $scope.changeSort = function(value){
+    if ($scope.sort == value){
+      $scope.reverse = !$scope.reverse;
+      return;
+    } 
+    $scope.sort = value;
+    $scope.reverse = false;
+  } 
 }
 ]);

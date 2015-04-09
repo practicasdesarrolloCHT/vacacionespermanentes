@@ -19,5 +19,8 @@ function($scope, posts, post, auth){
   $scope.incrementUpvotes = function(comment){
     posts.upvoteComment(post, comment);
   };
+  $scope.gotoHomePage = function(){
+    posts.gotoHomePage()
+  };
 }
 ]);
