@@ -10,6 +10,58 @@ var jwt = require('express-jwt');
 
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
+
+// ------------------------------- ENTREGA 1  -------------------------------------------
+
+var Viaje = mongoose.model('Viaje');
+
+router.param('viaje', function(req, res, next, id) {
+  var query = Viaje.findById(id);
+
+  query.exec(function (err, viaje){
+    if (err) { return next(err); }
+    if (!viaje) { return next(new Error('No se pudo encontrar el viaje')); }
+
+    req.viaje = viaje;
+    return next();
+  });
+});
+
+router.get('/viajes', function(req, res, next) {
+  Post.find(function(err, viajes){
+    if(err){ return next(err); }
+
+    res.json(viajes);
+  });
+});
+
+router.get('/viajes/:viaje', function(req, res, next) {
+    res.json(viaje);
+});
+
+
+
+// ------------------------------- ENTREGA 1 -------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.get('/posts', function(req, res, next) {
   Post.find(function(err, posts){
     if(err){ return next(err); }
