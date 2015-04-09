@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Flapper News</title>
+  <title>Vacaciones permanentes</title>
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
   <!--<link rel="stylesheet" type="text/css" href="style.css">-->
 
@@ -41,7 +41,60 @@
     </div>
   </div>
 
-  <script type="text/ng-template" id="/home.html">
+
+<!-- ------------------------------------------------ ENTREGA 1 -------------------------------------------- -->
+
+
+<script type="text/ng-template" id="/home.html">
+    <div class="page-header">
+      <h1>Vacaciones permanentes</h1>
+    </div>
+    
+    <table>
+      
+      <tr ng-repeat="viaje in viajes | orderBy:sort:reverse">
+
+        <td style="font-size:20px; margin-left:10px;">
+          <a href="#/viajes/{{viaje._id}}"> ({{viaje.nombre}}) - Comments</a>
+        </td>
+        <td ng-show="post.author">
+          posted by <a>{{post.author}}</a>
+        </td>
+      </tr>
+    </table>
+    <div ng-hide="isLoggedIn()">
+        <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
+    </div>
+    </script>
+
+<!-- Para que quede el form para agregar los viajes (acordarse de sacar la etiqueta de cierre de script de arriba)
+
+
+    <form ng-submit="agregarViaje()" ng-show="isLoggedIn()" style="margin-top:30px;">
+      <h3>Agregar un nuevo viaje</h3>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Nombre" ng-model="nombre"></input>
+      </div>
+      <div class="form-group">
+        <input type="date" class="form-control" placeholder="Fecha" ng-model="fecha"></input>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form> 
+  </script>
+ 
+  -->
+
+
+  
+
+<!-- ------------------------------------------------ ENTREGA 1 -------------------------------------------- -->
+
+
+
+
+
+
+  <script type="text/ng-template" id="/home2.html">
     <div class="page-header">
       <h1>Flapper News</h1>
     </div>

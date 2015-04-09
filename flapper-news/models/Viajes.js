@@ -1,3 +1,5 @@
+
+
 var mongoose = require('mongoose');
 
 var ViajeSchema = new mongoose.Schema({

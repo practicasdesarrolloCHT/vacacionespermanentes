@@ -14,6 +14,10 @@ require('./models/Comments');
 require('./models/Users');
 require('./config/passport');
 
+/*-----------------------------COSAS DE LA ENTREGA 1 --------------------------------*/
+require('./models/Viajes');
+/*-----------------------------COSAS DE LA ENTREGA 1 --------------------------------*/
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
