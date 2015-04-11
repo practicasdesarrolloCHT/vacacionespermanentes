@@ -1,5 +1,32 @@
 app.controller('MainCtrl', [
 '$scope',
+'viajes',
+'auth',
+function($scope,viajes,auth){
+  $scope.test = 'Viajes';
+  $scope.viajes = viajes.viajes;
+  $scope.isLoggedIn = auth.isLoggedIn;
+
+  $scope.addViaje = function(){
+    if(!$scope.nombre || $scope.nombre === '') { return; }
+    viajes.create({
+      nombre: $scope.nombre,
+      fecha_inicio: $scope.fecha_inicio,
+      fecha_fin: $scope.fecha_fin,
+    });
+    $scope.nombre = '';
+    $scope.fecha_inicio = '';
+    $scope.fecha_fin = '';
+  };
+  
+}
+]);
+
+/* COSAS ENTREGA ANTERIOR
+
+
+app.controller('MainCtrl', [
+'$scope',
 'posts',
 'auth',
 function($scope,posts,auth){
@@ -35,3 +62,5 @@ function($scope,posts,auth){
   } 
 }
 ]);
+
+*/

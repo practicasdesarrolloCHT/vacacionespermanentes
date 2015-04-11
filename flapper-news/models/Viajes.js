@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 
 var ViajeSchema = new mongoose.Schema({
   nombre: String,
-  fechas: [Date]
+  fecha_inicio: Date
+  fecha_fin: Date
 });
 
 

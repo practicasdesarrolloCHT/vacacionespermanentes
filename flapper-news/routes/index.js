@@ -20,7 +20,7 @@ router.param('viaje', function(req, res, next, id) {
 
   query.exec(function (err, viaje){
     if (err) { return next(err); }
-    if (!viaje) { return next(new Error('No se pudo encontrar el viaje')); }
+    if (!viaje) { return next(new Error('El viaje no esta')); }
 
     req.viaje = viaje;
     return next();
@@ -28,17 +28,16 @@ router.param('viaje', function(req, res, next, id) {
 });
 
 router.get('/viajes', function(req, res, next) {
-  Post.find(function(err, viajes){
+  Viaje.find(function(err, viajes){
     if(err){ return next(err); }
 
     res.json(viajes);
   });
 });
 
-router.get('/viajes/:viaje', function(req, res, next) {
-    res.json(viaje);
+router.get('/viajes/:viaje', function(req, res) {
+  res.json(req.viaje);
 });
-
 
 
 // ------------------------------- ENTREGA 1 -------------------------------------------

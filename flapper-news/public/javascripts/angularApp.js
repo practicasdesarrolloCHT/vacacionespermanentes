@@ -5,13 +5,42 @@ app.config([
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
 
+
+$stateProvider
+    .state('home', {
+      url: '/home',
+      templateUrl: '/home.html',
+      controller: 'MainCtrl',
+      resolve: {
+        viajePromise: ['viajes', function(viajes){
+        return viajes.getAll();
+        }]
+      }
+  })
+  $urlRouterProvider.otherwise('home');
+    
+  $stateProvider
+    .state('viajes', {
+      url: '/viajes/{id}',
+      templateUrl: '/viajes.html',
+      controller: 'ViajesCtrl',
+      resolve: {
+          viaje: ['$stateParams', 'viajes', function($stateParams, viajes) {
+          return viajes.get($stateParams.id);
+        }]
+      }
+  });
+
+
+  /* COSAS ENTREGA ANTERIOR
+
   $stateProvider
     .state('home', {
       url: '/home',
       templateUrl: '/home.html',
       controller: 'MainCtrl',
       resolve: {
-        postPromise: ['posts', function(posts){
+        postPromise: ['posts', function(viajes){
         return posts.getAll();
         }]
       }
@@ -28,7 +57,7 @@ function($stateProvider, $urlRouterProvider) {
           return posts.get($stateParams.id);
         }]
       }
-  });
+  });*/
 
   $stateProvider
     .state('login', {

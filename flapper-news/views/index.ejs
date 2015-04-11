@@ -16,6 +16,11 @@
   <script src="/javascripts/services/postsFactory.js"></script>
   <script src="/javascripts/services/authFactory.js"></script>
 
+  <!-- ------------------------------------- ENTREGA 1 ----------------------------- -->
+
+  <script src="/javascripts/services/viajesFactory.js"></script>
+
+<!-- ------------------------------------- ENTREGA 1 ----------------------------- -->
 
   <style> 
     .glyphicon-thumbs-up { cursor:pointer } 
@@ -52,18 +57,19 @@
     
     <table>
       
-      <tr ng-repeat="viaje in viajes | orderBy:sort:reverse">
-
+      <tr ng-repeat="viaje in viajes | orderBy:nombre">
+        {{viaje.nombre}}
         <td style="font-size:20px; margin-left:10px;">
-          <a href="#/viajes/{{viaje._id}}"> ({{viaje.nombre}}) - Comments</a>
+          <a href="#/viajes/{{viaje._id}}"> {{viaje.nombre}}</a>
         </td>
-        <td ng-show="post.author">
-          posted by <a>{{post.author}}</a>
+        <td>
+          Fecha inicio: {{viaje.fecha_inicio}}
+          Fecha fin: {{viaje.fecha_fin}}
         </td>
       </tr>
     </table>
     <div ng-hide="isLoggedIn()">
-        <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
+        <h3>Necesitas <a href="/#/login">loggearte</a> or <a href="/#/register">registrarte</a> antes de agregar un viaje.</h3>
     </div>
     </script>
 
@@ -87,7 +93,52 @@
 
   
 
+<script type="text/ng-template" id="/viajes.html">
+    <div class="page-header">
+    <button class="btn btn-primary back-btn" ng-click="gotoHomePage();">Home Page</button>
+      <h3> 
+          {{viaje.nombre}}
+      </h3>
+    </div>
+    <div>
+     <tr>
+     <td><u>Fechas</u></td>
+     <td><u>Fecha inicio</u>:  {{viaje.fecha_inicio}}</td>
+     <td><u>Fecha fin</u>:  {{viaje.fecha_fin}}</td>
+     </tr>
+    </div>
+</script>
+
+
 <!-- ------------------------------------------------ ENTREGA 1 -------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
