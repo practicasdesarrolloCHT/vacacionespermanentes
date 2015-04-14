@@ -31,6 +31,16 @@ $stateProvider
       }
   });
 
+  $stateProvider
+  .state('createViaje', {
+    url: '/createViaje',
+    templateUrl: '/createViaje.html',
+    controller: 'NewViajeCtrl',
+    resolve: {
+        //viaje: {}
+    }
+  });
+
 
   /* COSAS ENTREGA ANTERIOR
 

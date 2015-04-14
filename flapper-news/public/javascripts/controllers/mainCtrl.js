@@ -7,17 +7,9 @@ function($scope,viajes,auth){
   $scope.viajes = viajes.viajes;
   $scope.isLoggedIn = auth.isLoggedIn;
 
-  $scope.addViaje = function(){
-    if(!$scope.nombre || $scope.nombre === '') { return; }
-    viajes.create({
-      nombre: $scope.nombre,
-      fecha_inicio: $scope.fecha_inicio,
-      fecha_fin: $scope.fecha_fin,
-    });
-    $scope.nombre = '';
-    $scope.fecha_inicio = '';
-    $scope.fecha_fin = '';
-  };
+  $scope.createViajePage = function(){
+    viajes.gotoCreateViajePage()
+  }
   
 }
 ]);

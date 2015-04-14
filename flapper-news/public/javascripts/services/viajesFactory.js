@@ -7,8 +7,8 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
       angular.copy(data, o.viajes);
     });
   };
-  o.create = function(viajes) {
-  return $http.post('/viajes', viaje, {
+  o.create = function(viaje) {
+  return $http.post('/createViaje', viaje, {
     headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       o.viajes.push(data);
@@ -23,6 +23,9 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
  
   o.gotoHomePage = function(){
     window.location='/#/home'
+  }
+  o.gotoCreateViajePage = function(){
+    window.location='/#/createViaje' 
   }
 
   return o;

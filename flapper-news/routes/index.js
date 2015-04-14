@@ -39,6 +39,16 @@ router.get('/viajes/:viaje', function(req, res) {
   res.json(req.viaje);
 });
 
+router.post('/createViaje', auth, function(req, res, next) {
+  var viaje = new Viaje(req.body);
+  //post.author = req.payload.username;
+
+  viaje.save(function(err, viaje){
+    if(err){ return next(err); }
+
+    res.json(viaje);
+  });
+});
 
 // ------------------------------- ENTREGA 1 -------------------------------------------
 
