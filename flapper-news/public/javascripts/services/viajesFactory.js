@@ -8,7 +8,7 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
       angular.copy(data, o.viajes);
     });
   };
-
+  
   o.create = function(viaje) {
   return $http.post('/createViaje', viaje, {
     headers: {Authorization: 'Bearer '+auth.getToken()}
