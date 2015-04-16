@@ -38,9 +38,9 @@
   <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
     <ul class="nav navbar-nav">
       <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
-      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Desloguearse</a></li>
+      <li ng-hide="isLoggedIn()"><a href="/#/login">Loguearse In</a></li>
+      <li ng-hide="isLoggedIn()"><a href="/#/register">Registrarse</a></li>
     </ul>
   </nav>
   <div class="row">
@@ -67,11 +67,10 @@
         </td>
         <td>
           Fecha inicio: {{viaje.fecha_inicio}}
-          Fecha fin: {{viaje.fecha_fin}}
         </td>
         <td>
           <button class="btn btn-primary" ng-click="deleteViaje();">
-            <span class="glyphicon glyphicon-fire"></span> Delete Viaje
+            <span class="glyphicon glyphicon-fire"></span> Borrar viaje
           </button>
         </td>
       </tr>
@@ -79,7 +78,7 @@
     <div ng-hide="isLoggedIn()">
         <h3>Necesitas <a href="/#/login">loggearte</a> or <a href="/#/register">registrarte</a> antes de agregar un viaje.</h3>
     </div>
-    <button class="btn btn-primary back-btn" ng-click="createViajePage();">Create Viaje</button>
+    <button class="btn btn-primary back-btn" ng-click="createViajePage();">Crear Viaje</button>
 </script>
 
 <script type="text/ng-template" id="/createViaje.html">
@@ -97,6 +96,7 @@
         <!--test-->
         <input type="text" class="form-control" placeholder="Fecha de Inicio" ng-model="fecha_inicio"></input>
         <input type="text" class="form-control" placeholder="Fecha de Fin" ng-model="fecha_fin"></input>
+        <input type="text" class="form-control" placeholder="Destino" ng-model="destino"></input>
         <!---->
       </div>
       <button type="submit" class="btn btn-primary">Guardar</button>
@@ -123,6 +123,7 @@
      <tr>
       <td><u>Fecha inicio</u><span>:  {{viaje.fecha_inicio}}</span></td>
       <td><u>Fecha fin</u>:  {{viaje.fecha_fin}}</td>
+      <td><u>Destino</u>:  {{viaje.destino}}</td>
      </tr>
     </table>
     </div>

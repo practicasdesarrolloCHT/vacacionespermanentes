@@ -6,6 +6,7 @@ var ViajeSchema = new mongoose.Schema({
   nombre: String,
   fecha_inicio: String, //Date,
   fecha_fin: String//Date
+  destino: String
 });
 
 
