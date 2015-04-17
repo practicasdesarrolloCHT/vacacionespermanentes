@@ -29,9 +29,9 @@
   <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
     <ul class="nav navbar-nav">
       <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
-      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Desloguearse</a></li>
+      <li ng-hide="isLoggedIn()"><a href="/#/login">Loguearse</a></li>
+      <li ng-hide="isLoggedIn()"><a href="/#/register">Registrarse</a></li>
     </ul>
   </nav>
   <div class="row">
@@ -62,7 +62,7 @@
         </td>
         <td>
           <button class="btn btn-primary" ng-click="deleteViaje();">
-            <span class="glyphicon glyphicon-fire"></span> Delete Viaje
+            <span class="glyphicon glyphicon-fire"></span> Borrar Viaje
           </button>
         </td>
       </tr>
@@ -70,7 +70,7 @@
     <div ng-hide="isLoggedIn()">
         <h3>Necesitas <a href="/#/login">loggearte</a> or <a href="/#/register">registrarte</a> antes de agregar un viaje.</h3>
     </div>
-    <button class="btn btn-primary back-btn" ng-click="createViajePage();">Create Viaje</button>
+    <button class="btn btn-primary back-btn" ng-click="createViajePage();">Crear Viaje</button>
 </script>
 
 <script type="text/ng-template" id="/createViaje.html">
@@ -85,6 +85,9 @@
         <input type="text" class="form-control" placeholder="Nombre" ng-model="nombre"></input>
       </div>
       <div class="form-group">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Destino" ng-model="destino"></input>
+        </div>
         <p class="input-group">
           <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" is-open="openedFrom" min-date="'22.06.2014'" max-date="'22.12.2020'" ng-model="fecha_inicio"></input>
           <span class="input-group-btn">
@@ -115,7 +118,8 @@
     </div>
     <table>
       <tr><td> <u>Fechas</u> </td></tr>
-      <tr>
+      <tr><td><u>Destino</u>: {{viaje.destino}}</td></tr>
+      <tr>  
         <td><pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre></td>
         <td><pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre></td>
       </tr>
