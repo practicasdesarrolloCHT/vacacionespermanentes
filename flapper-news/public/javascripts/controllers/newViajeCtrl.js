@@ -22,5 +22,19 @@ function($scope, viajes,/* viaje,*/ auth){
     $scope.fecha_inicio = '';
     $scope.fecha_fin = '';
   };
+
+  $scope.openFrom = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.openedFrom = true;
+  };
+
+  $scope.openUntil = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.openedUntil = true;
+  };
 }
 ]);

@@ -1,4 +1,4 @@
-body {
+rbody {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -10,3 +10,11 @@ a {
 .back-btn{
 	float: right;
 }
+
+ .glyphicon glyphicon-plane { cursor:pointer } 
+ .glyphicon glyphicon-home { cursor:pointer } 
+ .glyphicon glyphicon-fire { cursor:pointer } 
+ table, th , td {
+   padding: 5px;
+ }
+ 

@@ -1,4 +1,5 @@
-var app = angular.module('flapperNews', ['ui.router']);
+var app = angular.module('flapperNews', ['ui.router','ui.bootstrap']);
+
 
 app.config([
 '$stateProvider',
