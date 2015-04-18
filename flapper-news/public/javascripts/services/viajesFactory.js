@@ -17,6 +17,12 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
     });
   };
 
+  o.borrarViaje = function(viaje) {
+    return $http.get('/viajes').success(function(data){
+      
+    });
+  };
+
   o.get = function(id) {
   return $http.get('/viajes/' + id).then(function(res){
       return res.data;

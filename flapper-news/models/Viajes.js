@@ -10,5 +10,4 @@ var ViajeSchema = new mongoose.Schema({
 });
 
 
-
 mongoose.model('Viaje', ViajeSchema);

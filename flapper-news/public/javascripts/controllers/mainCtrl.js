@@ -9,6 +9,10 @@ function($scope,viajes,auth){
 
   $scope.createViajePage = function(){
     viajes.gotoCreateViajePage()
+  };
+
+  $scope.borrarViaje = function(viaje){
+    viajes.borrarViaje(viaje)
   }
   
 }
