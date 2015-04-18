@@ -12,15 +12,17 @@ function($scope, viajes,/* viaje,*/ auth){
   };
 
   $scope.addViaje = function(){
-    if(!$scope.nombre || $scope.nombre === '') { return; }
+    if(!$scope.nombre || $scope.nombre === '' || $scope.fecha_inicio === '' || $scope.fecha_fin === '' || $scope.destino === '') { return; }
     viajes.create({
       nombre: $scope.nombre,
       fecha_inicio: $scope.fecha_inicio,
-      fecha_fin: $scope.fecha_fin
+      fecha_fin: $scope.fecha_fin,
+      destino: $scope.destino
     });	
     $scope.nombre = '';
     $scope.fecha_inicio = '';
     $scope.fecha_fin = '';
+    $scope.destino = '';
   };
 
   $scope.openFrom = function($event) {

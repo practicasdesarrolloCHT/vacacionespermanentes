@@ -118,11 +118,9 @@
     </div>
     <table>
       <tr><td> <u>Fechas</u> </td></tr>
+      <tr> <td><pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre></td></tr>
+       <tr> <td><pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre></td></tr>
       <tr><td><u>Destino</u>: {{viaje.destino}}</td></tr>
-      <tr>  
-        <td><pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre></td>
-        <td><pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre></td>
-      </tr>
     </table>
 </script>
 
