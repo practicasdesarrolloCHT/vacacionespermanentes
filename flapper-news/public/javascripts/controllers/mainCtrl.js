@@ -2,9 +2,9 @@ app.controller('MainCtrl', [
 '$scope',
 'viajes',
 'auth',
-'$dialogs',
+'$window',
 
-function($scope,viajes,auth,$dialogs){
+function($scope,viajes,auth,$window){
   $scope.test = 'Viajes';
   $scope.viajes = viajes.viajes;
   $scope.isLoggedIn = auth.isLoggedIn;
@@ -14,17 +14,20 @@ function($scope,viajes,auth,$dialogs){
   };
 
   $scope.borrarViaje = function(viaje){
+
+    var borrar_viaje_eleccion = $window.confirm('¿Realmente deseas borrar este viaje?');
+
+    if (borrar_viaje_eleccion) {
+      $window.alert('Borrando viaje');
+      viajes.borrarViaje(viaje._id, $scope.viajes.indexOf(viaje))
+     
+
+    }
     
+  };
 
 
-  dlg = $dialogs.confirm('Please Confirm','Is this awesome or what?');
-        dlg.result.then(function(btn){
-          
-          viajes.borrarViaje(viaje._id, $scope.viajes.indexOf(viaje))
-        },function(btn){
-         
-        });
-};        
+
   
 }
 ]);

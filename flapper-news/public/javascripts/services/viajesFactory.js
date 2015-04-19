@@ -14,6 +14,7 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
     headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       o.viajes.push(data);
+      window.location='/#/home'
     });
   };
 
