@@ -17,9 +17,11 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
     });
   };
 
-  o.borrarViaje = function(viaje) {
-    return $http.get('/viajes').success(function(data){
-      
+  o.borrarViaje = function(id,index) {
+    return $http.delete('/viajes/'+ id, {
+    headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      o.viajes.splice(index,1);
     });
   };
 

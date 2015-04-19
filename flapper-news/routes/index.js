@@ -35,6 +35,16 @@ router.get('/viajes', function(req, res, next) {
   });
 });
 
+router.delete('/viajes/:viaje', auth, function(req, res) {
+  var viaje = req.viaje
+
+  viaje.remove(function(err){
+    if(err){ return next(err); }
+
+    res.json('');
+  });
+});
+
 router.get('/viajes/:viaje', function(req, res) {
   res.json(req.viaje);
 });

@@ -1,11 +1,10 @@
-var app = angular.module('flapperNews', ['ui.router','ui.bootstrap']);
+var app = angular.module('flapperNews', ['ui.router','ui.bootstrap','dialogs']);
 
 
 app.config([
 '$stateProvider',
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
-
 
 $stateProvider
     .state('home', {
