@@ -18,17 +18,14 @@ a {
    padding: 5px;
  }
 
- .modal { 
+.modal { 
 	display: block;
 }
 
 /* Custom dialog/modal headers */
 
-.
 .dialog-header-confirm { background-color: #333333; }
 .dialog-header-confirm span, .dialog-header-confirm h4 { color: #ffffff; }
-
-/* Ease Display */
 
 .pad { padding: 25px; }
  

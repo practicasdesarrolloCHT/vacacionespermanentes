@@ -2,9 +2,8 @@ app.controller('MainCtrl', [
 '$scope',
 'viajes',
 'auth',
-'$window',
-
-function($scope,viajes,auth,$window){
+'dialogs',
+function($scope,viajes,auth,dialogs){
   $scope.test = 'Viajes';
   $scope.viajes = viajes.viajes;
   $scope.isLoggedIn = auth.isLoggedIn;
@@ -14,16 +13,13 @@ function($scope,viajes,auth,$window){
   };
 
   $scope.borrarViaje = function(viaje){
-
-    var borrar_viaje_eleccion = $window.confirm('¿Realmente deseas borrar este viaje?');
-
-    if (borrar_viaje_eleccion) {
-      $window.alert('Borrando viaje');
-      viajes.borrarViaje(viaje._id, $scope.viajes.indexOf(viaje))
-     
-
-    }
-    
+    dlg = dialogs.confirm('Por favor confirme','Esta seguro que quiere borrar el viaje: ' + viaje.nombre + '??');
+    dlg.result.then(function(btn){
+      viajes.borrarViaje(viaje._id, $scope.viajes.indexOf(viaje));
+      //agregar mensaje de éxito en el borrado
+    },function(btn){
+      //agregar mensaje de cancelación
+    });    
   };
 
 
