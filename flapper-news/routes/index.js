@@ -35,7 +35,14 @@ router.get('/viajes', function(req, res, next) {
   });
 });
 
-router.delete('/viajes/:viaje', auth, function(req, res) {
+var checkearPermisos = function(req,res, next) {
+  //if (req.viaje.user.id != req.user.id) {
+  //  return res.status(500).json("No es tuyo !!")
+ // }
+  return next();
+}
+
+router.delete('/viajes/:viaje', auth, checkearPermisos, function(req, res) {
   var viaje = req.viaje
 
   viaje.remove(function(err){
@@ -44,14 +51,14 @@ router.delete('/viajes/:viaje', auth, function(req, res) {
     res.json('');
   });
 });
-
-router.get('/viajes/:viaje', function(req, res) {
+var a = function(req, res) {
   res.json(req.viaje);
-});
+}
+router.get('/viajes/:viaje', a);
 
 router.post('/createViaje', auth, function(req, res, next) {
   var viaje = new Viaje(req.body);
-  //post.author = req.payload.username;
+  viaje.usuario = req.payload.id;
 
   viaje.save(function(err, viaje){
     if(err){ return next(err); }

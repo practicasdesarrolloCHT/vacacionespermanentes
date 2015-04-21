@@ -1,3 +1,5 @@
+var app = angular.module('flapperNews');
+
 app.controller('MainCtrl', [
 '$scope',
 'viajes',
@@ -7,7 +9,19 @@ function($scope,viajes,auth,dialogs){
   $scope.test = 'Viajes';
   $scope.viajes = viajes.viajes;
   $scope.isLoggedIn = auth.isLoggedIn;
-
+  //
+  $scope.sort = "nombre";
+  $scope.reverse = false;
+  //
+  $scope.changeSort = function(value){
+    if ($scope.sort == value){
+      $scope.reverse = !$scope.reverse;
+      return;
+    } 
+    $scope.sort = value;
+    $scope.reverse = false;
+  }
+  //
   $scope.createViajePage = function(){
     viajes.gotoCreateViajePage()
   };
@@ -27,46 +41,3 @@ function($scope,viajes,auth,dialogs){
   
 }
 ]);
-
-/* COSAS ENTREGA ANTERIOR
-
-
-app.controller('MainCtrl', [
-'$scope',
-'posts',
-'auth',
-function($scope,posts,auth){
-  $scope.test = 'Posts';
-  $scope.posts = posts.posts;
-  $scope.isLoggedIn = auth.isLoggedIn;
-  //
-  $scope.sort = "upvotes";
-  $scope.reverse = false;
-  //
-  $scope.addPost = function(){
-  	if(!$scope.title || $scope.title === '') { return; }
-  	posts.create({
-      title: $scope.title,
-      link: $scope.link,
-    });
-  	$scope.title = '';
-  	$scope.link = '';
-  };
-  $scope.incrementUpvotes = function(post) {
-    posts.upvote(post);
-  };
-  $scope.numberOfComments = function(post){
-    posts.numberOfComments(post)
-  }
-  $scope.changeSort = function(value){
-    if ($scope.sort == value){
-      $scope.reverse = !$scope.reverse;
-      return;
-    } 
-    $scope.sort = value;
-    $scope.reverse = false;
-  } 
-}
-]);
-
-*/

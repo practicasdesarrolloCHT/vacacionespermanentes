@@ -16,6 +16,7 @@
   <!-- ------------------------------------- ENTREGA 1 ----------------------------- -->
 
   <script src="/javascripts/directories/angular-moment.min.js"></script>
+  <script src="/javascripts/directories/moment.js"></script>
   <script src="/javascripts/angularApp.js"></script>
   <script src="/javascripts/controllers/mainCtrl.js"></script>
   <script src="/javascripts/controllers/postsCtrl.js"></script>
@@ -37,8 +38,8 @@
   <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
     <ul class="nav navbar-nav">
       <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
-      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Desloguearse</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/login">Loguearse</a></li>
+      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()"> <span class="glyphicon glyphicon-log-out"></span> Desloguearse</a></li>
+      <li ng-hide="isLoggedIn()"><a href="/#/login"> <span class="glyphicon glyphicon-log-in"></span>Loguearse</a></li>
       <li ng-hide="isLoggedIn()"><a href="/#/register">Registrarse</a></li>
     </ul>
   </nav>
@@ -59,7 +60,10 @@
     
     <table>
       
-      <tr  ng-repeat="viaje in viajes | orderBy:nombre">
+        <td><a ng-click="changeSort('nombre')"> Nombre </a></td>
+        <td><a ng-click="changeSort('fecha_inicio')"> Fecha de inicio </a></td>
+      
+      <tr  ng-repeat="viaje in viajes | orderBy:sort:reverse">
         {{viaje.nombre}}
         <td class = "glyphicon glyphicon-plane" style="font-size:20px; margin-left:10px;">
           <a href="#/viajes/{{viaje._id}}"> {{viaje.nombre}}</a>
@@ -69,8 +73,8 @@
           <pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre>
         </td>
         <td>
-          <button class="btn btn-primary" ng-click="borrarViaje(viaje);">
-            <span class="glyphicon glyphicon-fire"></span> Borrar Viaje
+          <button class="btn btn-danger" ng-click="borrarViaje(viaje);">
+            <span class="glyphicon glyphicon-trash"></span>
           </button>
         </td>
       </tr>
@@ -90,25 +94,25 @@
     <form ng-submit="addViaje()" ng-show="isLoggedIn()" style="margin-top:30px;">
       <h3>Agregar un nuevo viaje</h3>
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Nombre" ng-model="nombre"></input>
+        <input type="text" class="form-control" placeholder="Nombre" ng-model="nombre" required></input>
       </div>
       <div class="form-group">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Destino" ng-model="destino"></input>
+          <input type="text" class="form-control" placeholder="Destino" ng-model="destino" required></input>
         </div>
         <p class="input-group">
-          <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" is-open="openedFrom" min-date="'22.06.2014'" max-date="'22.12.2020'" ng-model="fecha_inicio"></input>
+          <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" is-open="openedFrom" min-date="'22.06.2014'" max-date="'22.12.2020'" ng-model="fecha_inicio" placeholder="Fecha de inicio" disabled required></input>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
       
-          <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" is-open="openedUntil" min-date="'22.06.2014'" max-date="'22.12.2020'" ng-model="fecha_fin"></input>
+          <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" is-open="openedUntil" min-date="'22.06.2014'" max-date="'22.12.2020'" ng-model="fecha_fin" placeholder="Fecha de fin" required disabled></input>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="openUntil($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
       </div>
-      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"> </span> Guardar</button>
     </form> 
 </script>
 
@@ -118,17 +122,18 @@
 <script type="text/ng-template" id="/viajes.html">
     <div class="page-header">
     <button class="btn btn-primary back-btn" ng-click="gotoHomePage();">
-      <span class="glyphicon glyphicon-home"></span>Home Page
+      <span class="glyphicon glyphicon-home"></span> Home Page
     </button>
       <h3 class ="glyphicon glyphicon-plane"> 
           {{viaje.nombre}}
       </h3>
     </div>
     <table>
+      <tr><td><u>Destino</u>: {{viaje.destino}}</td></tr>
+      <tr><td><u>Usuario</u>: {{viaje.usuario}}</td></tr>
       <tr><td> <u>Fechas</u> </td></tr>
       <tr> <td><pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre></td></tr>
-       <tr> <td><pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre></td></tr>
-      <tr><td><u>Destino</u>: {{viaje.destino}}</td></tr>
+      <tr> <td><pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre></td></tr>
     </table>
 </script>
 

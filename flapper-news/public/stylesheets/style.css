@@ -13,7 +13,12 @@ a {
 
  .glyphicon glyphicon-plane { cursor:pointer } 
  .glyphicon glyphicon-home { cursor:pointer } 
- .glyphicon glyphicon-fire { cursor:pointer } 
+ .glyphicon glyphicon-fire { cursor:pointer }
+ .glyphicon glyphicon-trash { cursor:pointer }
+ .glyphicon glyphicon-floppy-disk { cursor:pointer }
+ .glyphicon glyphicon-log-out { cursor:pointer }
+ .glyphicon glyphicon-log-in { cursor:pointer }
+
  table, th , td {
    padding: 5px;
  }
@@ -26,6 +31,7 @@ a {
 
 .dialog-header-confirm { background-color: #333333; }
 .dialog-header-confirm span, .dialog-header-confirm h4 { color: #ffffff; }
+.dialog-header-notify { background-color: #eeeeee; }
 
 .pad { padding: 25px; }
  

@@ -1,10 +1,10 @@
+ 
 app.controller('NewViajeCtrl', [
 '$scope',
 'viajes',
-//'viaje',
 'auth',
-function($scope, viajes,/* viaje,*/ auth){
-  //$scope.viaje = viaje; //viajes.viajes[$stateParams.id];
+'dialogs',
+function($scope, viajes, auth, dialogs){
   $scope.isLoggedIn = auth.isLoggedIn;
   
   $scope.gotoHomePage = function(){
@@ -12,7 +12,13 @@ function($scope, viajes,/* viaje,*/ auth){
   };
 
   $scope.addViaje = function(){
-    if(!$scope.nombre || $scope.nombre === '' || $scope.fecha_inicio === '' || $scope.fecha_fin === '' || $scope.destino === '') { return; }
+    if(!$scope.fecha_inicio || $scope.fecha_inicio === '' || !$scope.fecha_fin || $scope.fecha_fin === '' ) { return; }
+    
+    if(moment($scope.fecha_fin).isBefore($scope.fecha_inicio)) { 
+        dlg = dialogs.notify('No puedes comenzar un viaje si ya lo has terminado!','La fecha de fin no puede ser menor a la fecha de fin.');
+        return;
+    } 
+
     viajes.create({
       nombre: $scope.nombre,
       fecha_inicio: $scope.fecha_inicio,
