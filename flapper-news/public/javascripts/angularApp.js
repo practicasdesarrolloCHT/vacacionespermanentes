@@ -42,33 +42,6 @@ $stateProvider
   });
 
 
-  /* COSAS ENTREGA ANTERIOR
-
-  $stateProvider
-    .state('home', {
-      url: '/home',
-      templateUrl: '/home.html',
-      controller: 'MainCtrl',
-      resolve: {
-        postPromise: ['posts', function(viajes){
-        return posts.getAll();
-        }]
-      }
-  })
-  $urlRouterProvider.otherwise('home');
-    
-  $stateProvider
-    .state('posts', {
-  	  url: '/posts/{id}',
-  	  templateUrl: '/posts.html',
-  	  controller: 'PostsCtrl',
-      resolve: {
-          post: ['$stateParams', 'posts', function($stateParams, posts) {
-          return posts.get($stateParams.id);
-        }]
-      }
-  });*/
-
   $stateProvider
     .state('login', {
       url: '/login',
