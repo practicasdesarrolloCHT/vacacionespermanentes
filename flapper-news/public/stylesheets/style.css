@@ -1,3 +1,8 @@
+<!-- bower:css -->
+<link rel="stylesheet" href="../javascripts/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="../javascripts/lib/angular-dialog-service/dist/dialogs.min.css" />
+<!-- endbower -->
+
 rbody {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;

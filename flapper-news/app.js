@@ -10,14 +10,13 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 
 mongoose.connect('mongodb://localhost/news');
-require('./models/Posts');
-require('./models/Comments');
+
 require('./models/Users');
 require('./config/passport');
 
-/*-----------------------------COSAS DE LA ENTREGA 1 --------------------------------*/
+
 require('./models/Viajes');
-/*-----------------------------COSAS DE LA ENTREGA 1 --------------------------------*/
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
