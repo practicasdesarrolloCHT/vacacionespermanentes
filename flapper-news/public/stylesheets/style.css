@@ -1,6 +1,7 @@
 <!-- bower:css -->
 <link rel="stylesheet" href="../javascripts/lib/bootstrap/dist/css/bootstrap.css" />
 <link rel="stylesheet" href="../javascripts/lib/angular-dialog-service/dist/dialogs.min.css" />
+<link rel="stylesheet" href="../javascripts/lib/ng-tags-input/ng-tags-input.min.css" />
 <!-- endbower -->
 
 rbody {
@@ -11,6 +12,7 @@ rbody {
 a {
   color: #00B7FF;
 }
+
 
 .back-btn{
 	float: right;

@@ -1,3 +1,4 @@
+//mongod --config c:\mongodb\mongo.config
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');

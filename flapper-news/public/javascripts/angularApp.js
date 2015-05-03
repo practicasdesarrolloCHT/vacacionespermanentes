@@ -1,4 +1,4 @@
-var app = angular.module('flapperNews', ['ui.router','ui.bootstrap','dialogs.main']);
+var app = angular.module('flapperNews', ['ui.router','ui.bootstrap','dialogs.main','ngAutocomplete','ngTagsInput']);
 
 
 app.config([
