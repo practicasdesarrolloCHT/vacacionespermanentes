@@ -3,7 +3,11 @@
   <!-- bower:css -->
   <link rel="stylesheet" href="/javascripts/lib/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="/javascripts/lib/angular-dialog-service/dist/dialogs.min.css" />
+  <link rel="stylesheet" href="/javascripts/lib/ng-tags-input/ng-tags-input.min.css" />
   <!-- endbower -->
+
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+
 
   <!-- bower:js-->
   <script src="/javascripts/lib/jquery/dist/jquery.js"></script>
@@ -19,6 +23,8 @@
   <script src="/javascripts/lib/angular-dialog-service/dist/dialogs-default-translations.min.js"></script>
   <script src="/javascripts/lib/lodash/dist/lodash.compat.js"></script>
   <script src="/javascripts/lib/angular-google-maps/dist/angular-google-maps.js"></script>
+  <script src="/javascripts/lib/ng-tags-input/ng-tags-input.min.js"></script>
+  <script src="/javascripts/lib/ngAutocomplete/src/ngAutocomplete.js"></script>
   <!-- endbower-->
   
   <title>Vacaciones permanentes</title>
@@ -60,7 +66,7 @@
     <ul class="nav navbar-nav">
       <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
       <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()"> <span class="glyphicon glyphicon-log-out"></span> Desloguearse</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/login"> <span class="glyphicon glyphicon-log-in"></span>Loguearse</a></li>
+      <li ng-hide="isLoggedIn()"><a href="/#/login"> <span class="glyphicon glyphicon-log-in"></span> Loguearse</a></li>
       <li ng-hide="isLoggedIn()"><a href="/#/register">Registrarse</a></li>
     </ul>
   </nav>
@@ -80,6 +86,7 @@
     <table>
       
         <td><a ng-click="changeSort('nombre')"> Nombre </a></td>
+        
         <td><a ng-click="changeSort('fecha_inicio')"> Fecha de inicio </a></td>
       
       <tr  ng-repeat="viaje in viajes | orderBy:sort:reverse">
@@ -87,9 +94,10 @@
         <td class = "glyphicon glyphicon-plane" style="font-size:20px; margin-left:10px;">
           <a href="#/viajes/{{viaje._id}}"> {{viaje.nombre}}</a>
         </td>
+        
         <td>
           <pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre>
-          <pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre>
+          
         </td>
         <td>
           <button class="btn btn-danger" ng-click="borrarViaje(viaje);">
@@ -103,7 +111,7 @@
     </div>
     <button class="btn btn-primary back-btn" ng-click="createViajePage();">Crear Viaje</button>
 </script>
-
+<!--<pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre>-->
 <script type="text/ng-template" id="/createViaje.html">
     
     <button class="btn btn-primary back-btn" ng-click="gotoHomePage();">
@@ -115,10 +123,9 @@
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Nombre" ng-model="nombre" required></input>
       </div>
-      <div class="form-group">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Destino" ng-model="destino" required></input>
-        </div>
+
+      <div class="form-group">       
+      
         <p class="input-group">
           <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" is-open="openedFrom" min-date="'22.06.2014'" max-date="'22.12.2020'" ng-model="fecha_inicio" placeholder="Fecha de inicio" disabled required></input>
           <span class="input-group-btn">
@@ -130,12 +137,25 @@
             <button type="button" class="btn btn-default" ng-click="openUntil($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
+
+        <div  class="form-group">
+          <button ng-click="addNewChoice()" style="display: none;"></button>
+          <input type="text" class="form-control" placeholder="Agrega una ciudad" ng-model="nombre_ciudad" name="" 
+          id="Autocomplete"  ng-autocomplete="result" details="details" options="options" >
+      </div>
+
+      <div class="form-group" data-ng-repeat="ciudad in ciudades"> 
+      <button class="btn btn-danger" ng-click="borrarCiudad(ciudad);" style="float: right">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>      
+         <div style="overflow: hidden; padding-right: .5em;">
+          <input type="text" class="form-control" ng-model="ciudad.nombre" value=ciudad.nombre name="" 
+          id="Autocomplete"  ng-autocomplete="result" details="details" disabled options="options" style="width: 100%;"> </div>
+        </div>
       </div>
       <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"> </span> Guardar</button>
     </form> 
 </script>
-
-
   
 
 <script type="text/ng-template" id="/viajes.html">
@@ -148,12 +168,15 @@
       </h3>
     </div>
     <table>
-      <tr><td><u>Destino</u>: {{viaje.destino}}</td></tr>
       <tr><td><u>Usuario</u>: {{viaje.usuario}}</td></tr>
       <tr><td> <u>Fechas</u> </td></tr>
       <tr> <td><pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre></td></tr>
       <tr> <td><pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre></td></tr>
+      <tr><td><u>Ciudades</u>:</td></tr>
     </table>
+    <div class="form-group" data-ng-repeat="ciudad in viaje.ciudades"> 
+     {{ciudad}}
+    </div>
 </script>
 
 
