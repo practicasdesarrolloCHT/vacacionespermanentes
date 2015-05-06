@@ -1,4 +1,4 @@
-var app = angular.module('flapperNews', ['ui.router','ui.bootstrap','dialogs.main','ngAutocomplete','ngTagsInput']);
+var app = angular.module('flapperNews', ['ui.router','ui.bootstrap','dialogs.main','ngAutocomplete','uiGmapgoogle-maps']);//,'ngTagsInput']);
 
 
 app.config([

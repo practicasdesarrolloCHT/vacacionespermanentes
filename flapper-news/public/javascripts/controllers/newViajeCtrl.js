@@ -6,7 +6,7 @@ app.controller('NewViajeCtrl', [
 'dialogs',
 function($scope, viajes, auth, dialogs){
 
-
+   $scope.markerList = []
    $scope.result = '';
     $scope.options = {
       types: '(cities)',
@@ -51,6 +51,8 @@ function($scope, viajes, auth, dialogs){
     $scope.ciudades = [];
   };
 
+  $scope.map = { center: { latitude: 0, longitude: 0 }, zoom: 1 };  
+  
   $scope.addNewChoice = function() {
   if(! ($scope.nombre_ciudad==="") )
     {
@@ -58,12 +60,21 @@ function($scope, viajes, auth, dialogs){
       $scope.ciudades.push({'id':'ciudad'+newItemNo,'nombre': $scope.nombre_ciudad });
       $scope.nombre_ciudad = "";
     }
+  $scope.map = { center: { latitude: parseFloat($scope.details.geometry.location.A), longitude: parseFloat($scope.details.geometry.location.F) }, zoom: 10 };
+  $scope.markerList.push({ 'latitude': parseFloat($scope.details.geometry.location.A),
+                           'longitude': parseFloat($scope.details.geometry.location.F), 
+                           'message': "Destino numero " + newItemNo
+                         });
   };
+
+
 
   $scope.borrarCiudad = function(ciudad) {
     index = $scope.ciudades.indexOf(ciudad);
     if (index > -1) 
-      { $scope.ciudades.splice(index, 1); } 
+      { $scope.ciudades.splice(index, 1); 
+        $scope.markerList.splice(index,1);
+      } 
 };
 
 
