@@ -4,7 +4,9 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
   };
 
   o.getAll = function() {
-    return $http.get('/viajes').success(function(data){
+    return $http.get('/viajes',{
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
       angular.copy(data, o.viajes);
     });
   };
@@ -25,6 +27,12 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
       o.viajes.splice(index,1);
     });
   };
+
+  o.guardarEdicionDeViaje = function(id, viaje){
+    return $http.put('/viajes/'+id, viaje, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    });
+  }
 
   o.get = function(id) {
   return $http.get('/viajes/' + id).then(function(res){

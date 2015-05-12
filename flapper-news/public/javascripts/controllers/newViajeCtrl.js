@@ -37,9 +37,8 @@ function($scope, viajes, auth, dialogs){
     //console.log(destinos);
 
     viajes.create({
-
-
       nombre: $scope.nombre,
+      usuario: "",
       fecha_inicio: $scope.fecha_inicio,
       fecha_fin: $scope.fecha_fin,
       ciudades: destinos
@@ -61,7 +60,9 @@ function($scope, viajes, auth, dialogs){
       $scope.nombre_ciudad = "";
     }
   $scope.map = { center: { latitude: parseFloat($scope.details.geometry.location.A), longitude: parseFloat($scope.details.geometry.location.F) }, zoom: 10 };
-  $scope.markerList.push({ 'latitude': parseFloat($scope.details.geometry.location.A),
+  $scope.markerList.push({ 'id': "",
+                            'nombre': "sasa",
+                           'latitude': parseFloat($scope.details.geometry.location.A),
                            'longitude': parseFloat($scope.details.geometry.location.F), 
                            'message': "Destino numero " + newItemNo
                          });

@@ -25,8 +25,8 @@ router.param('viaje', function(req, res, next, id) {
   });
 });
 
-router.get('/viajes', function(req, res, next) {
-  Viaje.find(function(err, viajes){
+router.get('/viajes', auth, function(req, res, next) {
+  Viaje.find({usuario: req.payload.username},function(err, viajes){
     if(err){ return next(err); }
 
     res.json(viajes);
@@ -54,10 +54,21 @@ var a = function(req, res) {
 }
 router.get('/viajes/:viaje', a);
 
+router.put('/viajes/:viaje', auth, function(req, res, next){
+  var viaje = req.viaje
+
+  viaje.ciudades = req.body.ciudades;
+
+  viaje.save(function(err, viaje){
+    if(err){ return next(err); }
+
+    res.json(viaje);
+  });
+});
+
 router.post('/createViaje', auth, function(req, res, next) {
   var viaje = new Viaje(req.body);
-  viaje.usuario = req.payload.id;
-
+  viaje.usuario = req.payload.username;
   viaje.save(function(err, viaje){
     if(err){ return next(err); }
 

@@ -7,7 +7,7 @@ var ViajeSchema = new mongoose.Schema({
   usuario: String,
   fecha_inicio: Date,
   fecha_fin: Date,
-  ciudades: [String]
+  ciudades: [{id:String, nombre: String, latitude: String, longitude: String, message: String}]
 });
 
 
