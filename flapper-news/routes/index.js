@@ -9,7 +9,27 @@ var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
 
-// ------------------------------- ENTREGA 1  -------------------------------------------
+
+
+
+// ------------------------------ Ciudades
+
+//var Ciudad = mongoose.model('Ciudad');
+
+//router.param('ciudad', function(req, res, next, id) {
+  //var query = Ciudad.findById(id);
+
+  //query.exec(function (err, ciudad){
+    //if (err) { return next(err); }
+    //if (!ciudad) { return next(new Error('can\'t find ciudad')); }
+
+    //req.ciudad = ciudad;
+    //return next();
+  //});
+//});
+
+
+// -------------------------------------------------------
 
 var Viaje = mongoose.model('Viaje');
 

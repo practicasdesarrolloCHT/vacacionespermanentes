@@ -1,4 +1,4 @@
-var app = angular.module('flapperNews', ['ui.router','ui.bootstrap','dialogs.main','ngAutocomplete','uiGmapgoogle-maps','mwl.calendar']);
+var app = angular.module('flapperNews', ['ngSanitize', 'ui.select','ui.router','ui.bootstrap','dialogs.main','ngAutocomplete','uiGmapgoogle-maps','mwl.calendar']);
 
 
 app.config([
@@ -39,6 +39,19 @@ $stateProvider
     resolve: {
         //viaje: {}
     }
+  });
+
+
+  $stateProvider
+    .state('detalleCiudad', {
+      url: '/viajes/{id}/ciudad',
+      templateUrl: '/detalle_ciudad.html',
+      controller: 'DetalleCiudadCtrl',
+      resolve: {
+          viaje: ['$stateParams', 'viajes', function($stateParams, viajes) {
+          return viajes.get($stateParams.id);
+        }]
+      }
   });
 
 
