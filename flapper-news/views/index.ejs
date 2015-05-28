@@ -3,6 +3,50 @@
 
   
   <title>Vacaciones permanentes</title>
+
+  <style>
+      html, body, #map-canvas {
+        height: 0%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+
+  <!-- bower:css -->
+  <link rel="stylesheet" href="/javascripts/lib/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="/javascripts/lib/angular-dialog-service/dist/dialogs.min.css" />
+  <link rel="stylesheet" href="/javascripts/lib/ng-tags-input/ng-tags-input.min.css" />
+  <link rel="stylesheet" href="/javascripts/lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.css" />
+  <link rel="stylesheet" href="/javascripts/lib/angular-ui-select/dist/select.css" />
+  <!-- endbower -->
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>-->
+
+
+  <!-- bower:js-->
+  <script src="/javascripts/lib/jquery/dist/jquery.js"></script>
+  <script src="/javascripts/lib/angular/angular.js"></script>
+  <script src="/javascripts/lib/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="/javascripts/lib/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="/javascripts/lib/moment/moment.js"></script>
+  <script src="/javascripts/lib/angular-moment/angular-moment.js"></script>
+  <script src="/javascripts/lib/angular-sanitize/angular-sanitize.js"></script>
+  <script src="/javascripts/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="/javascripts/lib/angular-translate/angular-translate.js"></script>
+  <script src="/javascripts/lib/angular-dialog-service/dist/dialogs.min.js"></script>
+  <script src="/javascripts/lib/angular-dialog-service/dist/dialogs-default-translations.min.js"></script>
+  <script src="/javascripts/lib/lodash/dist/lodash.compat.js"></script>
+  <script src="/javascripts/lib/angular-google-maps/dist/angular-google-maps.js"></script>
+  <script src="/javascripts/lib/ng-tags-input/ng-tags-input.min.js"></script>
+  <script src="/javascripts/lib/ngAutocomplete/src/ngAutocomplete.js"></script>
+  <script src="/javascripts/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js"></script>
+  <script src="/javascripts/lib/angular-ui-select/dist/select.js"></script>
+  <!-- endbower-->
+
+  <!--
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/stylesheets/angular-bootstrap-calendar.css">
@@ -19,7 +63,7 @@
   <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
 
-  <script src="/javascripts/directories/angular-bootstrap-calendar-tpls.js"></script>
+  <script src="/javascripts/directories/angular-bootstrap-calendar-tpls.js"></script>-->
 
   <!-- ------------------------------------- ENTREGA 1 ----------------------------- -->
 
@@ -35,6 +79,7 @@
   <script src="/javascripts/controllers/navCtrl.js"></script>
   <script src="/javascripts/controllers/viajesCtrl.js"></script>
   <script src="/javascripts/controllers/newViajeCtrl.js"></script>
+  <script src="/javascripts/controllers/DetalleCiudadCtrl.js"></script>
 
   <script src="/javascripts/services/authFactory.js"></script>
   <script src="/javascripts/services/viajesFactory.js"></script>
@@ -178,8 +223,7 @@
           <span class="glyphicon glyphicon-trash"></span>
           </button>      
          <div style="overflow: hidden; padding-right: .5em;">
-          <input type="text" class="form-control" ng-model="ciudad.nombre" value=ciudad.nombre name="" 
-          id="Autocomplete"  ng-autocomplete="result" details="details" disabled options="options" style="width: 100%;"> </div>
+          <a href="#/viajes/{{viaje._id}}/ciudad"> {{ciudad.nombre}}</a>  </div>
         </div>
       </div>
     <ui-gmap-google-map center='map.center' zoom='map.zoom'>
@@ -205,7 +249,125 @@
 </script>
 
 
-  
+
+
+
+
+<script type="text/ng-template" id="/detalle_ciudad.html">
+    <div class="page-header">
+    <button class="btn btn-primary back-btn" ng-click="gotoHomePage();">
+      <span class="glyphicon glyphicon-home"></span> Home Page
+    </button>
+      <h2 class ="glyphicon glyphicon-plane"> 
+          {{viaje.nombre}}
+      </h2>
+
+      <h3> 
+          {{ciudad.nombre}}
+      </h3>
+
+      <div  class="form-group">
+      <input type="text" class="form-control" placeholder="Agrega un punto de interes" ng-model="punto_interes" name="" 
+      id="Autocomplete"  ng-autocomplete="result" details="details" options="options" >
+      <button type="button" class="btn btn-success" ng-click="addNewChoice()">Agregar punto interes</button>
+    </div>
+
+
+
+    <div class="form-group" data-ng-repeat="punto in ciudad.puntos_de_interes"> 
+     <button class="btn btn-danger" ng-click="borrarCiudad(punto);" style="float: right">
+          <span class="glyphicon glyphicon-trash"></span>
+          </button>      
+         <div style="overflow: hidden; padding-right: .5em;">
+          {{punto.nombre}} , {{punto.direccion}}  </div>
+        </div>
+      </div>
+
+    
+    
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+      <ui-gmap-marker idKey="$index" data-ng-repeat="marker in ciudad.puntos_de_interes" coords="marker">
+        <ui-gmap-window isIconVisibleOnClick="true">
+          <p>
+            {{marker.nombre}}
+          </p>
+        </ui-gmap-window>
+      </ui-gmap-marker>
+    </ui-gmap-google-map>
+
+
+  <div id="cleared"></div>
+
+  <div id="map-canvas"></div>
+
+  <h3>Seleccione un hotel</h3>
+  {{hotel.selected.nombre}}
+  <button type="button" class="btn btn-success" ng-hide="hotel.selected == null" ng-click="open()">Ver detalles</button></p>
+
+  <ui-select ng-model="hotel.selected" theme="bootstrap" ng-disabled="disabled" style="width: 325px;">
+    <ui-select-match placeholder="Seleccione o tipee el nombre de algun hotel">{{$select.selected.nombre}}</ui-select-match>
+    <ui-select-choices repeat="hotel in hoteles | filter: $select.search">
+      <span ng-bind-html="hotel.nombre | highlight: $select.search"></span>
+    </ui-select-choices>
+  </ui-select>
+
+    </div>
+</script>
+
+<!-- MODAL TEMPLATE-->
+ 
+
+<script type="text/ng-template" id="modalHotel.html">
+        <div class="modal-header">
+            <h3 class="modal-title">{{hotel.nombre}}</h3>
+        </div>
+        <div id="info-content">
+          <table>
+            <tr >
+              <td ng-show="is_direccion"> <u>Direccion</u>: {{hotel.direccion}}</td>
+            </tr>
+            <tr >
+              <td ng-show="is_numero_telefono"> <u>Telefono</u>: {{hotel.numero_telefono}}</td>
+            </tr>
+            <tr >
+              <td ng-show="is_numero_telefono_internacional"><u>Telefono internacional</u>: {{hotel.numero_telefono_internacional}}</td>
+            </tr>
+            <tr >
+              <td ng-show="is_raiting" >
+              <div> <u>Calificación</u>: 
+                <rating  ng-model="rate" value="rate" max="max" readonly="isReadonly"  ></rating>
+                <span 
+                 ng-class="{'label label-warning label-as-badge': percent<30, 'label label-info label-as-badge': percent>=30 && percent<70, 'label label-success label-as-badge': percent>=70}" >{{percent}}%</span>
+              </div>
+              </td>
+            </tr>
+            <tr >
+              <td  ng-show="is_website"> <u>Web</u>: {{hotel.website}} </td>
+            </tr>
+            <tr >
+              <td  ng-show="is_comentarios_huespedes"> <u>Comentarios</u>:
+
+                 <tr  ng-repeat="comentario in hotel.comentarios_huespedes">
+                  <td >
+                   {{comentario.texto}} - <b> {{comentario.autor}} </b>
+
+                  </td>
+                </tr>
+         </td>
+            </tr>
+            
+          </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+        </div>
+    </script>
+
+
+ 
+
+
+
 
 <script type="text/ng-template" id="/register.html">
   <div class="page-header">

@@ -6,7 +6,5 @@ var ViajeSchema = new mongoose.Schema({
   fecha_inicio: Date,
   fecha_fin: Date,
   ciudades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ciudad' }] //[{id:String, nombre: String, latitude: String, longitude: String, message: String}]
-});
-
 
 mongoose.model('Viaje', ViajeSchema);

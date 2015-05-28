@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="../javascripts/lib/bootstrap/dist/css/bootstrap.css" />
 <link rel="stylesheet" href="../javascripts/lib/angular-dialog-service/dist/dialogs.min.css" />
 <link rel="stylesheet" href="../javascripts/lib/ng-tags-input/ng-tags-input.min.css" />
+<link rel="stylesheet" href="../javascripts/lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.css" />
 <!-- endbower -->
 
 rbody {
@@ -43,4 +44,6 @@ a {
 .pad { padding: 25px; }
 
 .angular-google-map-container { height: 400px; }
- 
+
+.label-as-badge { border-radius: 1em; }
+

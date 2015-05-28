@@ -8,9 +8,6 @@ var jwt = require('express-jwt');
 
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
-
-// ------------------------------- ENTREGA 1  -------------------------------------------
-
 var Viaje = mongoose.model('Viaje');
 var Ciudad = mongoose.model('Ciudad');
 
