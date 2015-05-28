@@ -1,5 +1,3 @@
-
-
 var mongoose = require('mongoose');
 
 var ViajeSchema = new mongoose.Schema({
@@ -7,7 +5,7 @@ var ViajeSchema = new mongoose.Schema({
   usuario: String,
   fecha_inicio: Date,
   fecha_fin: Date,
-  ciudades: [{id:String, nombre: String, latitude: String, longitude: String, message: String}]
+  ciudades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ciudad' }] //[{id:String, nombre: String, latitude: String, longitude: String, message: String}]
 });
 
 

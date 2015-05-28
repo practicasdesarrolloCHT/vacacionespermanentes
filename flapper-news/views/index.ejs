@@ -166,9 +166,11 @@
       <tr><td><u>Ciudades</u>:</td></tr>
     </table>
     <div  class="form-group">
-      <input type="text" class="form-control" placeholder="Agrega una ciudad" ng-model="nombre_ciudad" name="" 
-      id="Autocomplete"  ng-autocomplete="result" details="details" options="options" >
-      <button type="button" class="btn btn-success" ng-click="addNewChoice()">Agregar Ciudad</button>
+      <button type="button" class="btn btn-success" ng-click="agregarCiudad()" style="float: right">Agregar Ciudad</button>
+      <div style="padding-right: 9.5em;">
+        <input type="text" class="form-control" placeholder="Agrega una ciudad" ng-model="nombre_ciudad" name="" 
+          id="Autocomplete"  ng-autocomplete="result" details="details" options="options" style="width: 100%;">
+      </div>
     </div>
 
     <div class="form-group" data-ng-repeat="ciudad in viaje.ciudades"> 

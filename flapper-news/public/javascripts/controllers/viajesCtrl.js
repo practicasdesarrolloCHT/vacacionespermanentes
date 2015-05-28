@@ -6,7 +6,8 @@ app.controller('ViajesCtrl', [
 'auth',
 function($scope, viajes, viaje, dialogs, auth){
   $scope.viaje = viaje;
-
+  $scope.viajes = viajes.viajes;
+  
   $scope.result = '';
   $scope.options = {
     types: '(cities)',
@@ -47,6 +48,23 @@ $scope.calendarTitle = 'Fucking calendario';
 
   $scope.map = { center: { latitude: currentLat, longitude: currentLong }, zoom: currentZoom };
 
+  $scope.agregarCiudad = function(){
+    var ciudadNro = $scope.viaje.ciudades.length+1;
+    var ciudadLat = parseFloat($scope.details.geometry.location.A)
+    var ciudadLong = parseFloat($scope.details.geometry.location.F)
+    //
+    viajes.agregarCiudad($scope.viaje._id,{
+      nombre: $scope.nombre_ciudad,
+      latitude: ciudadLat,
+      longitude: ciudadLong,
+      message: "Destino numero " + ciudadNro 
+    }).success(function(ciudad){
+       $scope.viaje.ciudades.push(ciudad);
+       $scope.map = { center:{ latitude: ciudadLat, longitude: ciudadLong }, zoom: 10 };
+       $scope.nombre_ciudad = "";
+    })
+  }
+
   $scope.addNewChoice = function() {
   if(! ($scope.nombre_ciudad==="") )
     {
@@ -63,12 +81,28 @@ $scope.calendarTitle = 'Fucking calendario';
     , zoom: 10 };
   };
 
+  //$scope.borrarCiudad = function(ciudad) {
+  //  dlg = dialogs.confirm('Por favor confirme','Esta seguro que quiere borrar la ciudad: ' + ciudad.nombre + '??');
+  //  dlg.result.then(function(btn){
+  //    index = $scope.viaje.ciudades.indexOf(ciudad);
+  //    if (index > -1) $scope.viaje.ciudades.splice(index, 1);
+  //    $scope.guardarEdicionDeViaje();
+  //  },function(btn){
+  //    //agregar mensaje de cancelación
+  //  }); 
+  //
+  //};
+
   $scope.borrarCiudad = function(ciudad) {
     dlg = dialogs.confirm('Por favor confirme','Esta seguro que quiere borrar la ciudad: ' + ciudad.nombre + '??');
     dlg.result.then(function(btn){
-      index = $scope.viaje.ciudades.indexOf(ciudad);
-      if (index > -1) $scope.viaje.ciudades.splice(index, 1);
-      $scope.guardarEdicionDeViaje();
+      var indiceDelViaje = viajes.viajes.map(function(el){return el._id;}).indexOf($scope.viaje._id);
+      var indiceDeLaCiudad = viaje.ciudades.indexOf(ciudad);
+      viajes.borrarCiudad($scope.viaje._id, indiceDelViaje,ciudad._id,indiceDeLaCiudad)
+                          .success(function(data){
+                                    $scope.viaje.ciudades.splice(indiceDeLaCiudad,1);
+                                    $scope.guardarEdicionDeViaje();
+      });
     },function(btn){
       //agregar mensaje de cancelación
     }); 

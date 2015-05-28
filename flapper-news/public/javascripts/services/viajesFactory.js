@@ -33,7 +33,22 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
       headers: {Authorization: 'Bearer '+auth.getToken()}
     });
   }
-
+  //CIUDAD
+  o.agregarCiudad = function(id, ciudad) {
+    return $http.post('/viajes/' + id + '/ciudad', ciudad, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    });
+  };
+  o.borrarCiudad = function(viajeId,viajeIndex,ciudadId,ciudadIndex) {
+    return $http.delete('/ciudad/' + ciudadId, {
+    headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      console.log("deleeeeeeeeee ciudades " + ciudadIndex)
+      //o.viajes[viajeIndex].ciudades.splice(ciudadIndex,1);
+      //o.guardarEdicionDeViaje(viajeId,viajeIndex);
+    });
+  };
+  //
   o.get = function(id) {
   return $http.get('/viajes/' + id).then(function(res){
       return res.data;

@@ -12,6 +12,7 @@ var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 // ------------------------------- ENTREGA 1  -------------------------------------------
 
 var Viaje = mongoose.model('Viaje');
+var Ciudad = mongoose.model('Ciudad');
 
 router.param('viaje', function(req, res, next, id) {
   var query = Viaje.findById(id);
@@ -49,8 +50,22 @@ router.delete('/viajes/:viaje', auth, checkearPermisos, function(req, res) {
     res.json('');
   });
 });
+router.delete('/ciudad/:ciudad', auth, checkearPermisos, function(req, res) {
+  var ciudad = req.ciudad
+
+  ciudad.remove(function(err){
+    if(err){ return next(err); }
+
+    res.json('');
+  });
+});
 var a = function(req, res) {
-  res.json(req.viaje);
+  req.viaje.populate('ciudades', function(err, viaje) {
+    if (err) { return next(err); }
+
+    res.json(viaje);
+  });
+  //res.json(req.viaje);
 }
 router.get('/viajes/:viaje', a);
 
@@ -75,7 +90,36 @@ router.post('/createViaje', auth, function(req, res, next) {
     res.json(viaje);
   });
 });
+//
+router.post('/viajes/:viaje/ciudad', auth, function(req, res, next) {
+  var ciudad = new Ciudad(req.body);
+  //ciudad.viaje = req.viaje;
+  //ciudad.author = req.payload.username;
 
+  ciudad.save(function(err, ciudad){
+    if(err){ return next(err); }
+
+    req.viaje.ciudades.push(ciudad);
+    req.viaje.save(function(err, viaje) {
+      if(err){ return next(err); }
+
+      res.json(ciudad);
+    });
+  });
+});
+//
+router.param('ciudad', function(req, res, next, id) {
+  var query = Ciudad.findById(id);
+
+  query.exec(function (err, ciudad){
+    if (err) { return next(err); }
+    if (!ciudad) { return next(new Error('No se puede encontrar esa Ciudad')); }
+
+    req.ciudad = ciudad;
+    return next();
+  });
+});
+//
 // ------------------------------- ENTREGA 1 -------------------------------------------
 
 
