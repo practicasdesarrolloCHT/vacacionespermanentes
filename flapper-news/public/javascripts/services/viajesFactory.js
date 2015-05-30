@@ -54,6 +54,11 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
       return res.data;
     });
   };
+  o.getCiudad = function(id) {
+  return $http.get('/ciudad/' + id).then(function(res){
+      return res.data;
+    });
+  };
  
   o.gotoHomePage = function(){
     window.location='/#/home'

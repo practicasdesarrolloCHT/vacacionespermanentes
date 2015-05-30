@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="../javascripts/lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.css" />
 <!-- endbower -->
 
+
+
 rbody {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -47,3 +49,18 @@ a {
 
 .label-as-badge { border-radius: 1em; }
 
+#container1 {
+    float:left;
+    height:25%;
+}
+#col1 {
+    float:left;
+    width:35%;
+    vertical-align: middle;
+
+}
+#col2 {
+    float:left;
+    width:65%;
+
+}

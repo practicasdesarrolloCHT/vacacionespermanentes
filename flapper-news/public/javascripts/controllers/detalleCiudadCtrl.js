@@ -4,27 +4,27 @@ app.controller('DetalleCiudadCtrl', [
 '$scope',
 '$modal',
 'viajes',
-'viaje',
+'ciudad',
 'dialogs',
 'auth',
 
 
 
-function($scope, $modal,viajes, viaje, dialogs, auth){
-  $scope.viaje = viaje; 
+function($scope, $modal,viajes, ciudad, dialogs, auth){
+  //$scope.viaje = viaje; 
   $scope.isLoggedIn = auth.isLoggedIn;
   $scope.punto_interes = '';
 
 
   $scope.ciudad = {'id':'ciudad1',
-                    'nombre': "Buenos Aires, Argentina",
-                    "latitude" : -32.890183,
- 					          "longitude" : -68.8440498,
-                    'country_short_name': 'AR',
-                    'city_short_name': "MZ", 
+                    'nombre': ciudad.nombre,//"Buenos Aires, Argentina",
+                    "latitude" : ciudad.latitude,//-32.890183,
+ 					          "longitude" : ciudad.longitude,//-68.8440498,
+                    'country_short_name': ciudad.pais, //'AR',
                     'message': "Destino numero 1 ",
-                	  'puntos_de_interes': [],
-                    'hotel': {}}
+                	  'puntos_de_interes': ciudad.puntosDeInteres,
+                    'hotel': ciudad.hotel
+                  }
 
   
   
@@ -149,31 +149,12 @@ function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       savePlace(results[i]);
-     // d = printDetails(results[i]);
-      //console.log(results[i].name);
-      //console.log(d);
-      //console.log("-------------------------------------");
-
-
-
-    
+         
     }
   }
 };
 
 
-function printDetails(place){
-
-
-
-var request = { reference: place.reference };
-  d =  $scope.service_googlemaps.getDetails(request, function(details, status) {
-      console.log(details);
-      console.log(status);
-      return details
-    });
-  return d
-};
 
 function savePlace(place) {
   var placeLoc = place.geometry.location;
@@ -223,24 +204,13 @@ function savePlace(place) {
 
 
       $scope.hoteles.push(informacion);
-      //console.log(details);
-      //console.log(status);
+     
       }
-      //else {console.log(status);
-        //    console.log(place.name);}
+      
     });
-
- 
-
-  //$scope.hoteles.push({"nombre":place.name, "id": place.place_id, "mierda": "hola"});
-
-  //google.maps.event.addListener(marker, 'click', function() {
-    //infowindow.setContent(place.name);
-    //infowindow.open(map, this);
-  //});
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+initialize();
 
 // MODAL
 

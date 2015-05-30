@@ -66,6 +66,10 @@ var a = function(req, res) {
 }
 router.get('/viajes/:viaje', a);
 
+router.get('/ciudad/:ciudad', function(req, res){
+  res.json(req.ciudad);
+});
+
 router.put('/viajes/:viaje', auth, function(req, res, next){
   var viaje = req.viaje
 

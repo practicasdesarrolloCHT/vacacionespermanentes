@@ -44,12 +44,14 @@ $stateProvider
 
   $stateProvider
     .state('detalleCiudad', {
-      url: '/viajes/{id}/ciudad',
+      url: '/ciudad/{idc}',
       templateUrl: '/detalle_ciudad.html',
       controller: 'DetalleCiudadCtrl',
       resolve: {
-          viaje: ['$stateParams', 'viajes', function($stateParams, viajes) {
-          return viajes.get($stateParams.id);
+          ciudad: ['$stateParams', 'viajes', function($stateParams, viajes) {
+            //var currentViaje = viajes.get($stateParams.idv);
+            //var indiceDeLaCiudad = currentViaje.ciudades.map(function(el){return el._id;}).indexOf($stateParams.idc);
+          return viajes.getCiudad($stateParams.idc);//currentViaje.ciudades[indiceDeLaCiudad];
         }]
       }
   });

@@ -38,12 +38,24 @@ function($scope, viajes, viaje, dialogs, auth){
     var ciudadNro = $scope.viaje.ciudades.length+1;
     var ciudadLat = parseFloat($scope.details.geometry.location.A)
     var ciudadLong = parseFloat($scope.details.geometry.location.F)
-    //
+
+    //Sacar country short name 
+    atributos = $scope.details.address_components;
+    var country_short_name= "";
+    atributos.forEach(function(data) {
+        if(data.types.indexOf('country') > -1){
+        country_short_name = data.short_name; };
+      });
+
     viajes.agregarCiudad($scope.viaje._id,{
       nombre: $scope.nombre_ciudad,
       latitude: ciudadLat,
       longitude: ciudadLong,
-      message: "Destino numero " + ciudadNro 
+      message: "Destino numero " + ciudadNro,
+      pais: country_short_name,
+      puntosDeInteres: [],
+      hotel: {}
+
     }).success(function(ciudad){
        $scope.viaje.ciudades.push(ciudad);
        $scope.map = { center:{ latitude: ciudadLat, longitude: ciudadLong }, zoom: 10 };
@@ -58,11 +70,13 @@ function($scope, viajes, viaje, dialogs, auth){
       var newItemNo = $scope.viaje.ciudades.length+1;
 
       addressComponent = $scope.details.address_components
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + $scope.details);
       addressComponent.forEach(function(data) {
         if(data.types.indexOf('administrative_area_level_1') > -1){
         city_short_name = data.short_name; };
       });
        console.log(city_short_name);
+
 
       $scope.viaje.ciudades.push({'id':'ciudad'+newItemNo,
                             'nombre': $scope.nombre_ciudad,
