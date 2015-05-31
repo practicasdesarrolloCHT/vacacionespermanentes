@@ -13,7 +13,7 @@ var CiudadSchema = new mongoose.Schema({
   					 longitude: Number,
              website: String,
              calificacion: Number}],
-  hotel: {reference: String}
+  hotelReference:  String
 });
 
 

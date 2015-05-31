@@ -17,17 +17,6 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
 
   $scope.ciudad = ciudad;
 
-  /*{'id':'ciudad1',
-      'nombre': ciudad.nombre,//"Buenos Aires, Argentina",
-      "latitude" : ciudad.latitude,//-32.890183,
-      "longitude" : ciudad.longitude,//-68.8440498,
-      'country_short_name': ciudad.pais, //'AR',
-      'message': "Destino numero 1 ",
-      'puntos_de_interes': ciudad.puntosDeInteres,
-      'hotel': ciudad.hotel
-    }*/
-
-  
   
   var bounds_ciudad= new google.maps.LatLngBounds();
   var point = new google.maps.LatLng($scope.ciudad.latitude,$scope.ciudad.longitude);
@@ -43,6 +32,8 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
 
 
   $scope.details = '';
+
+
 
 
 
@@ -71,9 +62,7 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
          { informacion.calificacion = $scope.details.rating}
       if($scope.details.website)
         { informacion.website = $scope.details.website }
-     
 
-      console.log(informacion);
 
       $scope.ciudad.puntosDeInteres.push(informacion);
 
@@ -147,6 +136,8 @@ var map;
 var infowindow;
 $scope.hoteles = [];
 $scope.hotel = {};
+
+
 function initialize() {
   
 
@@ -173,7 +164,9 @@ function callback(results, status) {
       savePlace(results[i]);
          
     }
+
   }
+
 };
 
 function obtenerDetalles(details) {
@@ -217,13 +210,7 @@ function obtenerDetalles(details) {
 function savePlace(place) {
   var placeLoc = place.geometry.location;
 
- // var marker = new google.maps.Marker({
-   // map: map,
-    //position: place.geometry.location
-
-  //});
-
-  var request = { reference: place.reference };
+   var request = { reference: place.reference };
 
   $scope.actual_place = place
 
@@ -231,30 +218,32 @@ function savePlace(place) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
 
       informacion = obtenerDetalles(details);
-
-
       $scope.hoteles.push(informacion);
-     
-      }
+
+      if ($scope.ciudad.hotelReference){
+        if(informacion.nombre==$scope.ciudad.hotelReference) $scope.hotel.selected = informacion;
+        }
+     }
       
     });
 }
+
+
 
 initialize();
 
 // MODAL
 
-
- $scope.open = function (size) {
+ $scope.openPunto = function (punto,size) {
 
     var modalInstance = $modal.open({
       animation: true,
-      templateUrl: 'modalHotel.html',
-      controller: 'DetalleHotelCtrl',
+      templateUrl: 'modalDetalles.html',
+      controller: 'DetalleCtrl',
       size: size,
       resolve: {
-        hotel_seleccionado: function () {
-          return $scope.hotel.selected
+        punto_seleccionado: function () {
+          return punto
           }
       }
     });
@@ -262,15 +251,24 @@ initialize();
 
 };
 
+  $scope.$watch('hotel.selected', function() {
+
+       if($scope.hotel.selected) {
+     
+      viajes.guardarEdicionDeCiudad($scope.ciudad._id,{
+      hotelReference: $scope.hotel.selected.nombre });
+    }
+   });
+
 
 
 
 }
 ]);
 
-app.controller('DetalleHotelCtrl', function ($scope, $modalInstance, hotel_seleccionado) {
+app.controller('DetalleCtrl', function ($scope, $modalInstance, punto_seleccionado) {
 
-  $scope.hotel = hotel_seleccionado;
+  $scope.punto = punto_seleccionado;
 
   $scope.isCollapsed = true;
 
@@ -278,26 +276,26 @@ app.controller('DetalleHotelCtrl', function ($scope, $modalInstance, hotel_selec
   $scope.max = 5;
   $scope.isReadonly = true;
 
-  if ( $scope.hotel.numero_telefono) $scope.is_numero_telefono = true;
+  if ( $scope.punto.numero_telefono) $scope.is_numero_telefono = true;
   else $scope.is_numero_telefono = false;
  
-  if ( $scope.hotel.calificacion) {
+  if ( $scope.punto.calificacion) {
     $scope.is_raiting = true;
-    $scope.rate = $scope.hotel.calificacion; 
+    $scope.rate = $scope.punto.calificacion; 
     $scope.percent = (100 * $scope.rate) / $scope.max;
   }
   else $scope.is_raiting = false; 
 
-  if ($scope.hotel.direccion) $scope.is_direccion = true;
+  if ($scope.punto.direccion) $scope.is_direccion = true;
   else $scope.is_direccion = false; 
 
-  if ($scope.hotel.numero_telefono_internacional) $scope.is_numero_telefono_internacional = true;
+  if ($scope.punto.numero_telefono_internacional) $scope.is_numero_telefono_internacional = true;
   else $scope.is_numero_telefono_internacional = false; 
 
-  if ($scope.hotel.website) $scope.is_website = true;
+  if ($scope.punto.website) $scope.is_website = true;
   else $scope.is_website = false;
 
-  if ($scope.hotel.comentarios_huespedes) $scope.is_comentarios_huespedes = true;
+  if ($scope.punto.comentarios_huespedes) $scope.is_comentarios_huespedes = true;
   else $scope.is_comentarios_huespedes = false;  
 
 
@@ -323,7 +321,7 @@ app.controller('DetalleHotelCtrl', function ($scope, $modalInstance, hotel_selec
 
 app.controller('RatingDeeeemoCtrl', function ($scope) {
 
-    console.log("kkkkkkkkkkkkkkk");
+   
     $scope.myRate = 0;
 
      $scope.submit = function() {

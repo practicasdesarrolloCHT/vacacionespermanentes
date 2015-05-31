@@ -39,7 +39,9 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
       headers: {Authorization: 'Bearer '+auth.getToken()}
     });
   };
+
   o.guardarEdicionDeCiudad = function(id, ciudad){
+    console.log("aca estoy")
     return $http.put('/ciudad/'+id, ciudad, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     });
@@ -49,8 +51,7 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
     headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       console.log("deleeeeeeeeee ciudades " + ciudadIndex)
-      //o.viajes[viajeIndex].ciudades.splice(ciudadIndex,1);
-      //o.guardarEdicionDeViaje(viajeId,viajeIndex);
+
     });
   };
   //
