@@ -34,7 +34,6 @@ function($scope, viajes, auth, dialogs){
     $scope.ciudades.forEach(function(ciudad) {
         destinos.push(ciudad.nombre);
       });
-    //console.log(destinos);
 
     viajes.create({
       nombre: $scope.nombre,
@@ -49,35 +48,6 @@ function($scope, viajes, auth, dialogs){
     $scope.ciudad = '';
     $scope.ciudades = [];
   };
-
-  $scope.map = { center: { latitude: 0, longitude: 0 }, zoom: 1 };  
-  
-  $scope.addNewChoice = function() {
-  if(! ($scope.nombre_ciudad==="") )
-    {
-      var newItemNo = $scope.ciudades.length+1;
-      $scope.ciudades.push({'id':'ciudad'+newItemNo,'nombre': $scope.nombre_ciudad });
-      $scope.nombre_ciudad = "";
-    }
-  $scope.map = { center: { latitude: parseFloat($scope.details.geometry.location.A), longitude: parseFloat($scope.details.geometry.location.F) }, zoom: 10 };
-  $scope.markerList.push({ 'id': "",
-                            'nombre': "sasa",
-                           'latitude': parseFloat($scope.details.geometry.location.A),
-                           'longitude': parseFloat($scope.details.geometry.location.F), 
-                           'message': "Destino numero " + newItemNo
-                         });
-  };
-
-
-
-  $scope.borrarCiudad = function(ciudad) {
-    index = $scope.ciudades.indexOf(ciudad);
-    if (index > -1) 
-      { $scope.ciudades.splice(index, 1); 
-        $scope.markerList.splice(index,1);
-      } 
-};
-
 
   $scope.openFrom = function($event) {
     $event.preventDefault();

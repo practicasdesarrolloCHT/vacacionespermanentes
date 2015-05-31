@@ -153,7 +153,7 @@ function($scope, viajes, viaje, dialogs, auth){
 ];
 $scope.calendarView = 'month';
 $scope.calendarDay = Date();
-$scope.calendarTitle = 'Fucking calendario';
+$scope.calendarTitle = calendarTitle.month();
 
 }
 ]);
