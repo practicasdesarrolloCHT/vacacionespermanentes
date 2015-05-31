@@ -10,7 +10,9 @@ var CiudadSchema = new mongoose.Schema({
   puntosDeInteres: [{nombre: String,
   					 direccion: String,
   					 latitude: Number,
-  					 longitude: Number}],
+  					 longitude: Number,
+             website: String,
+             calificacion: Number}],
   hotel: {reference: String}
 });
 

@@ -56,14 +56,26 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
   if(! ($scope.punto_interes==="") )
 
     {
-      
+
+      informacion = {}
+      informacion.nombre = $scope.punto_interes;
+      informacion.direccion = $scope.details.formatted_address;
+
       latt = parseFloat($scope.details.geometry.location.A);
       longg = parseFloat($scope.details.geometry.location.F);
 
-      $scope.ciudad.puntosDeInteres.push({'nombre': $scope.punto_interes, 
-                                            'direccion': $scope.details.formatted_address,
-                                            'latitude': latt,
-                                            'longitude': longg });
+      informacion.latitude = latt;
+      informacion.longitude = longg;
+
+      if($scope.details.rating)
+         { informacion.calificacion = $scope.details.rating}
+      if($scope.details.website)
+        { informacion.website = $scope.details.website }
+     
+
+      console.log(informacion);
+
+      $scope.ciudad.puntosDeInteres.push(informacion);
 
       $scope.guardarEdicionDeCiudad();
       
@@ -164,6 +176,42 @@ function callback(results, status) {
   }
 };
 
+function obtenerDetalles(details) {
+
+  var informacion = {};
+  informacion.nombre = details.name;
+  informacion.id = details.place_id;
+  informacion.direccion = details.formatted_address;
+  if(details.formatted_phone_number)
+    { informacion.numero_telefono = details.formatted_phone_number}
+  if(details.international_phone_number)
+    { informacion.numero_telefono_internacional = details.international_phone_number}
+  if(details.rating)
+    { informacion.calificacion = details.rating}
+  if(details.website)
+    { informacion.website = details.website }
+  if(details.reviews)
+    { 
+      var comentarios = [];
+      for  (var i = 0; i < details.reviews.length; i++)
+        {
+          comentario = details.reviews[i];
+          if (! (comentario.text === ""))
+          {
+            var c = {};
+            c.autor = comentario.author_name;
+            c.raiting = comentario.rating;
+            c.texto = comentario.text;
+            comentarios.push(c);
+          }
+        }
+      informacion.comentarios_huespedes = comentarios;   
+
+        
+     }
+  return informacion;
+}
+
 
 
 function savePlace(place) {
@@ -176,41 +224,13 @@ function savePlace(place) {
   //});
 
   var request = { reference: place.reference };
+
   $scope.actual_place = place
+
   $scope.service_googlemaps.getDetails(request, function(details, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
 
-      var informacion = {};
-      informacion.nombre = place.name;
-      informacion.id = place.place_id;
-      informacion.direccion = details.formatted_address;
-      place = $scope.actual_place
-      if(details.formatted_phone_number)
-        { informacion.numero_telefono = details.formatted_phone_number}
-      if(details.international_phone_number)
-        { informacion.numero_telefono_internacional = details.international_phone_number}
-      if(details.rating)
-        { informacion.calificacion = details.rating}
-      if(details.website)
-        { informacion.website = details.website }
-      if(details.reviews)
-        { 
-          var comentarios = [];
-          for  (var i = 0; i < details.reviews.length; i++)
-          {
-            comentario = details.reviews[i];
-            if (! (comentario.text === ""))
-            {
-                var c = {};
-                c.autor = comentario.author_name;
-                c.raiting = comentario.rating;
-                c.texto = comentario.text;
-                comentarios.push(c);
-            }
-          }
-         informacion.comentarios_huespedes = comentarios;   
-
-        }
+      informacion = obtenerDetalles(details);
 
 
       $scope.hoteles.push(informacion);
