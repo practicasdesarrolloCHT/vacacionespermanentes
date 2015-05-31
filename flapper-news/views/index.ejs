@@ -241,7 +241,7 @@
 
 
 <script type="text/ng-template" id="/detalle_ciudad.html">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-9 col-md-offset-1">
     
     <div class="page-header">
       <button class="btn btn-primary back-btn" ng-click="gotoHomePage();">
@@ -262,6 +262,7 @@
         <div>
             <h4>Seleccione un hotel</h4>     
 
+
             <ui-select ng-model="hotel.selected" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
               <ui-select-match placeholder="Tipee el nombre de algun hotel">{{$select.selected.nombre}}</ui-select-match>
               <ui-select-choices repeat="hotel in hoteles | filter: $select.search">
@@ -269,14 +270,17 @@
               </ui-select-choices>
             </ui-select>
 
-            <button type="button" class="btn btn-success" ng-hide="hotel.selected == null" ng-click="open()">Ver detalles</button></p>
+            <button type="button" class="btn btn-primary back-btn" ng-hide="hotel.selected == null" style="float: left" ng-click="openPunto(hotel.selected)">Detalles</button>
+
+            </p>
+
         </div>
           
         </br>
 
         <h4>Puntos de interes</h4>
         
-        <input type="text" class="form-control" placeholder="Agrega un punto de interes" ng-model="punto_interes" name="" 
+        <input type="text" class="form-control" placeholder="Agrega un punto de interes" style="width: 300px;" ng-model="punto_interes" name="" 
          id="Autocomplete"  ng-autocomplete="result" details="details" options="options" >
 
         
@@ -285,7 +289,10 @@
         <div class="form-group" data-ng-repeat="punto in ciudad.puntosDeInteres" > 
             <button class="btn btn-danger" ng-click="borrarPuntoDeInteres(punto);" style="float: right">
                 <span class="glyphicon glyphicon-trash"></span>
-            </button>      
+            </button> 
+            <button class="btn btn-primary back-btn" ng-click="openPunto(punto)" style="float: right">
+                <span class="glyphicon glyphicon-comment"></span>
+            </button>     
             <div style="overflow: hidden; padding-right: .5em;">
                 {{punto.nombre}}
             </div>
@@ -294,7 +301,7 @@
 
     
        <div id="col2"> 
-        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+        <ui-gmap-google-map center='map.center' zoom='map.zoom' id="mapapuntos">
           <ui-gmap-marker idKey="$index" data-ng-repeat="marker in ciudad.puntosDeInteres" coords="marker">
             <ui-gmap-window isIconVisibleOnClick="true">
               <p>
@@ -315,22 +322,22 @@
 <!-- MODAL TEMPLATE-->
  
 
-<script type="text/ng-template" id="modalHotel.html">
+<script type="text/ng-template" id="modalDetalles.html">
 
         <div class="modal-header">
-            <h3 class="modal-title">{{hotel.nombre}}</h3>
+            <h3 class="modal-title">{{punto.nombre}}</h3>
         </div>
        
         <div id="info-content">
           <table>
             <tr >
-              <td ng-show="is_direccion"> <u>Direccion</u>: {{hotel.direccion}}</td>
+              <td ng-show="is_direccion"> <u>Direccion</u>: {{punto.direccion}}</td>
             </tr>
             <tr >
-              <td ng-show="is_numero_telefono"> <u>Telefono</u>: {{hotel.numero_telefono}}</td>
+              <td ng-show="is_numero_telefono"> <u>Telefono</u>: {{punto.numero_telefono}}</td>
             </tr>
             <tr >
-              <td ng-show="is_numero_telefono_internacional"><u>Telefono internacional</u>: {{hotel.numero_telefono_internacional}}</td>
+              <td ng-show="is_numero_telefono_internacional"><u>Telefono internacional</u>: {{punto.numero_telefono_internacional}}</td>
             </tr>
             <tr >
               <td ng-show="is_raiting" >
@@ -342,7 +349,7 @@
               </td>
             </tr>
             <tr >
-              <td  ng-show="is_website"> <u>Web</u>: <a href={{hotel.website}}> {{hotel.website}}</a> </td>
+              <td  ng-show="is_website"> <u>Web</u>: <a href={{punto.website}}> {{punto.website}}</a> </td>
             </tr>
             <tr >
               <td  ng-show="is_comentarios_huespedes">
@@ -352,7 +359,7 @@
 
                 <div id="demo" collapse="isCollapsed"> 
                 <br> 
-                   <div ng-repeat="comentario in hotel.comentarios_huespedes" class="well well-sm">
+                   <div ng-repeat="comentario in punto.comentarios_huespedes" class="well well-sm">
                      {{comentario.texto}} 
                      <br>
                      <b> {{comentario.autor}} </b>

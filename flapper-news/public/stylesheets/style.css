@@ -21,6 +21,7 @@ a {
 	float: right;
 }
 
+ .glyphicon glyphicon glyphicon-comment { cursor:pointer } 
  .glyphicon glyphicon-plane { cursor:pointer } 
  .glyphicon glyphicon-home { cursor:pointer } 
  .glyphicon glyphicon-fire { cursor:pointer }
@@ -55,12 +56,12 @@ a {
 }
 #col1 {
     float:left;
-    width:35%;
+    width:37%;
     vertical-align: middle;
 
 }
 #col2 {
     float:left;
-    width:65%;
+    width:63%;
 
 }
