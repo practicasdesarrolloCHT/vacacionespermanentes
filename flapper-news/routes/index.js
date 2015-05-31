@@ -108,6 +108,19 @@ router.post('/viajes/:viaje/ciudad', auth, function(req, res, next) {
     });
   });
 });
+
+router.put('/ciudad/:ciudad', auth, function(req, res, next){
+  var ciudad = req.ciudad
+
+  ciudad.puntosDeInteres = req.body.puntosDeInteres;
+
+  ciudad.save(function(err, ciudad){
+    if(err){ return next(err); }
+
+    res.json(ciudad);
+  });
+});
+
 //
 router.param('ciudad', function(req, res, next, id) {
   var query = Ciudad.findById(id);

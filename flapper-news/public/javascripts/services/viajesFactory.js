@@ -39,6 +39,11 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
       headers: {Authorization: 'Bearer '+auth.getToken()}
     });
   };
+  o.guardarEdicionDeCiudad = function(id, ciudad){
+    return $http.put('/ciudad/'+id, ciudad, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    });
+  }
   o.borrarCiudad = function(viajeId,viajeIndex,ciudadId,ciudadIndex) {
     return $http.delete('/ciudad/' + ciudadId, {
     headers: {Authorization: 'Bearer '+auth.getToken()}

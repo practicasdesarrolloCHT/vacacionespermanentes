@@ -10,21 +10,22 @@ app.controller('DetalleCiudadCtrl', [
 
 
 
-function($scope, $modal,viajes, ciudad, dialogs, auth){
+function($scope, $modal, viajes, ciudad, dialogs, auth){
   //$scope.viaje = viaje; 
   $scope.isLoggedIn = auth.isLoggedIn;
   $scope.punto_interes = '';
 
+  $scope.ciudad = ciudad;
 
-  $scope.ciudad = {'id':'ciudad1',
-                    'nombre': ciudad.nombre,//"Buenos Aires, Argentina",
-                    "latitude" : ciudad.latitude,//-32.890183,
- 					          "longitude" : ciudad.longitude,//-68.8440498,
-                    'country_short_name': ciudad.pais, //'AR',
-                    'message': "Destino numero 1 ",
-                	  'puntos_de_interes': ciudad.puntosDeInteres,
-                    'hotel': ciudad.hotel
-                  }
+  /*{'id':'ciudad1',
+      'nombre': ciudad.nombre,//"Buenos Aires, Argentina",
+      "latitude" : ciudad.latitude,//-32.890183,
+      "longitude" : ciudad.longitude,//-68.8440498,
+      'country_short_name': ciudad.pais, //'AR',
+      'message': "Destino numero 1 ",
+      'puntos_de_interes': ciudad.puntosDeInteres,
+      'hotel': ciudad.hotel
+    }*/
 
   
   
@@ -36,7 +37,7 @@ function($scope, $modal,viajes, ciudad, dialogs, auth){
   $scope.options = {
     types: 'establishment',
     bounds: bounds_ciudad,
-    country: $scope.ciudad.country_short_name,
+    country: $scope.ciudad.pais,
     watchEnter: true
   };    
 
@@ -59,10 +60,12 @@ function($scope, $modal,viajes, ciudad, dialogs, auth){
       latt = parseFloat($scope.details.geometry.location.A);
       longg = parseFloat($scope.details.geometry.location.F);
 
-      $scope.ciudad.puntos_de_interes.push({'nombre': $scope.punto_interes, 
+      $scope.ciudad.puntosDeInteres.push({'nombre': $scope.punto_interes, 
                                             'direccion': $scope.details.formatted_address,
                                             'latitude': latt,
                                             'longitude': longg });
+
+      $scope.guardarEdicionDeCiudad();
       
       centrarMapa(latt,longg);
 
@@ -73,24 +76,31 @@ function($scope, $modal,viajes, ciudad, dialogs, auth){
   
   };
 
-  $scope.borrarCiudad = function(punto_interes) {
+  $scope.guardarEdicionDeCiudad = function(){
+    viajes.guardarEdicionDeCiudad($scope.ciudad._id,{
+      puntosDeInteres: $scope.ciudad.puntosDeInteres
+    });
+  }
+
+  $scope.borrarPuntoDeInteres = function(punto_interes) {
     dlg = dialogs.confirm('Por favor confirme','¿Esta seguro que quiere borrar el punto de interes: ' + punto_interes.nombre + '?');
     
     dlg.result.then(function(btn){
       
-      index = $scope.ciudad.puntos_de_interes.indexOf(punto_interes);
-      if (index > -1) $scope.ciudad.puntos_de_interes.splice(index, 1);
-      var cant_puntos = $scope.ciudad.puntos_de_interes.length;
+      index = $scope.ciudad.puntosDeInteres.indexOf(punto_interes);
+      if (index > -1) $scope.ciudad.puntosDeInteres.splice(index, 1);
+      var cant_puntos = $scope.ciudad.puntosDeInteres.length;
       
       if(cant_puntos>0) 
         { 
-          var ultimo_punto = $scope.ciudad.puntos_de_interes[$scope.ciudad.puntos_de_interes.length-1]
+          var ultimo_punto = $scope.ciudad.puntosDeInteres[$scope.ciudad.puntosDeInteres.length-1]
           latt = ultimo_punto.latitude;
           longg = ultimo_punto.longitude; }
       else 
         {  latt = $scope.ciudad.latitude
            longg = $scope.ciudad.longitude }
       
+      $scope.guardarEdicionDeCiudad();
       centrarMapa(latt,longg);
 
     },function(btn){
@@ -105,13 +115,13 @@ function($scope, $modal,viajes, ciudad, dialogs, auth){
 
 
 
-  var cantidadDePuntos = $scope.ciudad.puntos_de_interes.length
+  var cantidadDePuntos = $scope.ciudad.puntosDeInteres.length
   var currentLat = $scope.ciudad.latitude
   var currentLong = $scope.ciudad.longitude
 
   if(cantidadDePuntos != 0){
-    currentLat = parseFloat($scope.ciudad.puntos_de_interes[cantidadDePuntos-1].latitude);
-    currentLong = parseFloat($scope.ciudad.puntos_de_interes[cantidadDePuntos-1].longitude);
+    currentLat = parseFloat($scope.ciudad.puntosDeInteres[cantidadDePuntos-1].latitude);
+    currentLong = parseFloat($scope.ciudad.puntosDeInteres[cantidadDePuntos-1].longitude);
 
   } 
 
@@ -216,7 +226,6 @@ initialize();
 
 
  $scope.open = function (size) {
-    console.log("lalalalala");
 
     var modalInstance = $modal.open({
       animation: true,
@@ -242,6 +251,8 @@ initialize();
 app.controller('DetalleHotelCtrl', function ($scope, $modalInstance, hotel_seleccionado) {
 
   $scope.hotel = hotel_seleccionado;
+
+  $scope.isCollapsed = true;
 
   $scope.is_raiting = false;
   $scope.max = 5;
