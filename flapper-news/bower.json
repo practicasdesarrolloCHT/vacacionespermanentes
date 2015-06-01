@@ -29,7 +29,7 @@
     "ng-tags-input": "~2.3.0",
     "ngAutocomplete": "~1.0.0",
     "express": "~4.12.3",
-    "angular-bootstrap-calendar": "~0.10.2",
-    "angular-ui-select": "~0.11.2"
+    "angular-bootstrap-calendar": "~0.10.6",
+    "angular-ui-select": "~0.11.2",
   }
 }

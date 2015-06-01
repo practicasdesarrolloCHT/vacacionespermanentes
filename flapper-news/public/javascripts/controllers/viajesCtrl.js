@@ -15,6 +15,10 @@ function($scope, viajes, viaje, dialogs, auth){
   };    
   $scope.details = '';
 
+  $scope.cantidadDeDias = null;
+  $scope.isCollapsed = true;
+
+
   $scope.isLoggedIn = auth.isLoggedIn;
 
   
@@ -34,6 +38,8 @@ function($scope, viajes, viaje, dialogs, auth){
 
   $scope.map = { center: { latitude: currentLat, longitude: currentLong }, zoom: currentZoom };
 
+  mostrarActividad();
+
   $scope.agregarCiudad = function(){
     var ciudadNro = $scope.viaje.ciudades.length+1;
     var ciudadLat = parseFloat($scope.details.geometry.location.A)
@@ -49,6 +55,7 @@ function($scope, viajes, viaje, dialogs, auth){
 
     viajes.agregarCiudad($scope.viaje._id,{
       nombre: $scope.nombre_ciudad,
+      cantidadDeDias: $scope.cantidadDeDias,
       latitude: ciudadLat,
       longitude: ciudadLong,
       message: "Destino numero " + ciudadNro,
@@ -60,6 +67,7 @@ function($scope, viajes, viaje, dialogs, auth){
        $scope.viaje.ciudades.push(ciudad);
        $scope.map = { center:{ latitude: ciudadLat, longitude: ciudadLong }, zoom: 10 };
        $scope.nombre_ciudad = "";
+       mostrarActividad();
     })
   }
 
@@ -70,7 +78,6 @@ function($scope, viajes, viaje, dialogs, auth){
       var newItemNo = $scope.viaje.ciudades.length+1;
 
       addressComponent = $scope.details.address_components
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + $scope.details);
       addressComponent.forEach(function(data) {
         if(data.types.indexOf('administrative_area_level_1') > -1){
         city_short_name = data.short_name; };
@@ -139,21 +146,32 @@ function($scope, viajes, viaje, dialogs, auth){
 ///////////////////////////////////////////// CALENDAR
 
 
-
- $scope.events = [
-  {
-    title: 'My event title', // The title of the event
-    type: 'info', // The type of the event (determines its color). Can be important, warning, info, inverse, success or special
-    startsAt: $scope.viaje.fecha_inicio, // A javascript date object for when the event starts
-    endsAt: $scope.viaje.fecha_fin, // A javascript date object for when the event ends
-    editable: true, // If edit-event-html is set and this field is explicitly set to false then dont make it editable
-    deletable: true, // If delete-event-html is set and this field is explicitly set to false then dont make it deleteable
-    incrementsBadgeTotal: true //If set to false then will not count towards the badge total amount on the month and year view
+function mostrarActividad(){
+   $scope.events = [];
+   var coloresDeActividad = ['important', 'warning', 'info', 'inverse', 'success','special']
+   var currentFecha = $scope.viaje.fecha_inicio;
+   var currentIndiceDeActividad = 0;
+   for  (var i = 0; i < $scope.viaje.ciudades.length; i++){
+    var currentCiudad = $scope.viaje.ciudades[i];
+    var currentFechaFin = moment(moment(currentFecha).add(currentCiudad.cantidadDeDias, 'days')).format('L');
+    var currentColorDeActividad = coloresDeActividad[currentIndiceDeActividad];
+    if(currentIndiceDeActividad > coloresDeActividad.length) currentIndiceDeActividad = 0;
+    else currentIndiceDeActividad++;
+    $scope.events.push({
+      title: currentCiudad.nombre,
+      type: currentColorDeActividad,
+      startsAt: currentFecha,
+      endsAt: currentFechaFin,
+      editable: false, // If edit-event-html is set and this field is explicitly set to false then dont make it editable
+      deletable: false, // If delete-event-html is set and this field is explicitly set to false then dont make it deleteable
+      incrementsBadgeTotal: true //If set to false then will not count towards the badge total amount on the month and year view
+    });
+    currentFecha = currentFechaFin;
   }
-];
+}
 $scope.calendarView = 'month';
 $scope.calendarDay = Date();
-$scope.calendarTitle = calendarTitle.month();
+//$scope.calendarTitle = 'month';
 
 }
 ]);
