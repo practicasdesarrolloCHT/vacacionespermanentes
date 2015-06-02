@@ -1,475 +1,109 @@
 <html>
-<head>
-
-  
-  <title>Vacaciones permanentes</title>
-
-  <style>
-      html, body, #map-canvas {
-        height: 0%;
-        margin: 0px;
-        padding: 0px
-      }
-    </style>
-
-  <!-- bower:css -->
-  <!--<link rel="stylesheet" href="/javascripts/lib/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="/javascripts/lib/angular-dialog-service/dist/dialogs.min.css" />
-  <link rel="stylesheet" href="/javascripts/lib/ng-tags-input/ng-tags-input.min.css" />
-  <link rel="stylesheet" href="/javascripts/lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.css" />
-  <link rel="stylesheet" href="/javascripts/lib/angular-ui-select/dist/select.css" /> -->
-  <!-- endbower -->
-  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
-
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
-  <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>-->
-
-
-  <!-- bower:js-->
-  <!--<script src="/javascripts/lib/jquery/dist/jquery.js"></script>
-  <script src="/javascripts/lib/angular/angular.js"></script>
-  <script src="/javascripts/lib/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="/javascripts/lib/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="/javascripts/lib/moment/moment.js"></script>
-  <script src="/javascripts/lib/angular-moment/angular-moment.js"></script>
-  <script src="/javascripts/lib/angular-sanitize/angular-sanitize.js"></script>
-  <script src="/javascripts/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="/javascripts/lib/angular-translate/angular-translate.js"></script>
-  <script src="/javascripts/lib/angular-dialog-service/dist/dialogs.min.js"></script>
-  <script src="/javascripts/lib/angular-dialog-service/dist/dialogs-default-translations.min.js"></script>
-  <script src="/javascripts/lib/lodash/dist/lodash.compat.js"></script>
-  <script src="/javascripts/lib/angular-google-maps/dist/angular-google-maps.js"></script>
-  <script src="/javascripts/lib/ng-tags-input/ng-tags-input.min.js"></script>
-  <script src="/javascripts/lib/ngAutocomplete/src/ngAutocomplete.js"></script>
-  <script src="/javascripts/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js"></script>
-  <script src="/javascripts/lib/angular-ui-select/dist/select.js"></script> -->
-  <!-- endbower-->
-
-  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-  
-  
-  <!-- COMENTÁ ESTO HASTA.... -->
-  <link rel="stylesheet" href="/stylesheets/angular-bootstrap-calendar.css">
-  <link rel="stylesheet" href="/stylesheets/select.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
-  <script src="/javascripts/directories/moment.js"></script>
-  <script src="/javascripts/directories/angular-moment.min.js"></script>
-  <script src="/javascripts/directories/ngAutocomplete.js"></script>
-  <script src="/javascripts/directories/angular-google-maps.js"></script>
-  <script src="/javascripts/directories/lodash.js"></script>
-  <script src="//code.angularjs.org/1.3.0/angular-sanitize.min.js"></script> 
-  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
-
-  <script src="/javascripts/directories/angular-bootstrap-calendar-tpls.js"></script>
-  <script src="/javascripts/directories/select.js"></script>
-
-  <!-- ....ACÁ -->
-
-  <!-- ------------------------------------- ENTREGA 1 ----------------------------- -->
-
-  <script src="/javascripts/directories/dialogs.min.js"></script>
-  
-  <!-- ------------------------------------- ENTREGA 1 ----------------------------- -->
-
-  
-  <script src="/javascripts/angularApp.js"></script>
-  
-  <script src="/javascripts/controllers/mainCtrl.js"></script>
-  <script src="/javascripts/controllers/authCtrl.js"></script>
-  <script src="/javascripts/controllers/navCtrl.js"></script>
-  <script src="/javascripts/controllers/viajesCtrl.js"></script>
-  <script src="/javascripts/controllers/newViajeCtrl.js"></script>
-  <script src="/javascripts/controllers/DetalleCiudadCtrl.js"></script>
-
-  <script src="/javascripts/services/authFactory.js"></script>
-  <script src="/javascripts/services/viajesFactory.js"></script>
-
-
-</head>
-
-<body ng-app="flapperNews">
-  <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
-    <ul class="nav navbar-nav">
-      <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
-      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()"> <span class="glyphicon glyphicon-log-out"></span> Desloguearse</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/login"> <span class="glyphicon glyphicon-log-in"></span> Loguearse</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/register">Registrarse</a></li>
-    </ul>
-  </nav>
-  <div class="row">
-    
-      <ui-view></ui-view>  
-   
-  </div>
-
-
-<script type="text/ng-template" id="/home.html">
-  <div class="col-md-6 col-md-offset-3">
-    <div class="page-header">
-      <h1>Vacaciones permanentes</h1>
-    </div>
-    
-    <table>
-      
-        <td><a ng-click="changeSort('nombre')"> Nombre </a></td>
-        
-        <td><a ng-click="changeSort('fecha_inicio')"> Fecha de inicio </a></td>
-      
-      <tr  ng-repeat="viaje in viajes | orderBy:sort:reverse">
-        {{viaje.nombre}}
-        <td class = "glyphicon glyphicon-plane" style="font-size:20px; margin-left:10px;">
-          <a href="#/viajes/{{viaje._id}}"> {{viaje.nombre}}</a>
-        </td>
-        
-        <td>
-          <pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre>
-          
-        </td>
-        <td>
-          <button class="btn btn-danger" ng-click="borrarViaje(viaje);">
-            <span class="glyphicon glyphicon-trash"></span>
-          </button>
-        </td>
-      </tr>
-    </table>
-    <div ng-hide="isLoggedIn()">
-        <h3>Necesitas <a href="/#/login">loggearte</a> or <a href="/#/register">registrarte</a> antes de agregar un viaje.</h3>
-    </div>
-    <button class="btn btn-primary back-btn" ng-click="createViajePage();">Crear Viaje</button>
-  </div>  
-</script>
- <!--<pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre>-->
-<script type="text/ng-template" id="/createViaje.html">
-    <div class="col-md-6 col-md-offset-3">
-    <button class="btn btn-primary back-btn" ng-click="gotoHomePage();">
-      <span class="glyphicon glyphicon-home"></span> Home Page
-    </button>
-
-    <form ng-submit="addViaje()" ng-show="isLoggedIn()" style="margin-top:30px;">
-      <h3>Agregar un nuevo viaje</h3>
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Nombre" ng-model="nombre" required></input>
-      </div>
-
-      <div class="form-group">       
-      
-        <p class="input-group">
-          <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" is-open="openedFrom" min-date="'22.06.2014'" max-date="'22.12.2020'" ng-model="fecha_inicio" placeholder="Fecha de inicio" disabled required></input>
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-      
-          <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" is-open="openedUntil" min-date="'22.06.2014'" max-date="'22.12.2020'" ng-model="fecha_fin" placeholder="Fecha de fin" required disabled></input>
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="openUntil($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
-
-      <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"> </span> Guardar</button>
-    </form> 
-  </div>
-</script>
-  
-
-<script type="text/ng-template" id="/viajes.html">
-  <div class="col-md-6 col-md-offset-3">
-    <div>
-      <div class="page-header">
-        <button class="btn btn-primary back-btn" ng-click="gotoHomePage();">
-          <span class="glyphicon glyphicon-home"></span> Home Page
-        </button>
-        <h3 class ="glyphicon glyphicon-plane"> 
-            {{viaje.nombre}}
-        </h3>
-      </div>
-      <table>
-        <tr><td><u>Usuario</u>: {{viaje.usuario}}</td></tr>
-        <tr><td> <u>Fechas</u> </td></tr>
-        <tr> <td><pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre></td></tr>
-        <tr> <td><pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre></td></tr>
-        <tr><td><u>Ciudades</u>:</td></tr>
-      </table>
-      
-      <div  class="form-group">
-        <button type="button" class="btn btn-success" ng-click="agregarCiudad()" style="float: right">Agregar Ciudad</button>
-        <div style="padding-right: 9.5em;">
-          <input type="text" class="form-control" placeholder="Agrega una ciudad" ng-model="nombre_ciudad" name="" 
-            id="Autocomplete"  ng-autocomplete="result" details="details" options="options" style="width: 100%;"><br>
-          <input type="Number" class="form-control" placeholder="Cantidad De Dias" ng-model="cantidadDeDias" style="width: 100%;">
-        </div>
-      </div>
-      <!--{{details}}-->
-
-      <div class="form-group" data-ng-repeat="ciudad in viaje.ciudades"> 
-       <button class="btn btn-danger" ng-click="borrarCiudad(ciudad);" style="float: right">
-            <span class="glyphicon glyphicon-trash"></span>
-        </button>      
-        <div style="overflow: hidden; padding-right: .5em;">
-            <a href="#/ciudad/{{ciudad._id}}"> {{ciudad.nombre}}</a>
-            <td> / {{ciudad.cantidadDeDias}} Dias </td>
-        </div>
-      </div>
-
-      <button type="button" class="btn btn-warning" ng-click="isCollapsed = !isCollapsed" data-target="#calendario">
-        Ver Calendario
-      </button>
-
-      <div id="calendario" collapse="isCollapsed"> 
-
-      <h2 class="text-center ng-binding">{{calendarTitle}}</h2>
-      <div class="row">
-        <div class="col-md-6 text-center">
-          <div class="btn-group">
-            <button decrement="calendarView" date="calendarDay" mwl-date-modifier="" class="btn btn-primary ng-isolate-scope">
-              Anterior
-            </button>
-            <button set-to-today="" date="calendarDay" mwl-date-modifier="" class="btn btn-default ng-isolate-scope">
-              Hoy
-            </button>
-            <button increment="calendarView" date="calendarDay" mwl-date-modifier="" class="btn btn-primary ng-isolate-scope">
-              Siguiente
-            </button>
-          </div>
-        </div>
-
-        <br class="visible-xs visible-sm">
-
-        <div class="col-md-6 text-center">
-          <div class="btn-group">
-            <label btn-radio="'year'" ng-model="calendarView" class="btn btn-primary ng-pristine ng-untouched ng-valid">Anio</label>
-            <label btn-radio="'month'" ng-model="calendarView" class="btn btn-primary ng-pristine ng-untouched ng-valid active">Mes</label>
-            <label btn-radio="'week'" ng-model="calendarView" class="btn btn-primary ng-pristine ng-untouched ng-valid">Semana</label>
-          </div>
-        </div>
-
-      </div>
-      <br>
-      <div class="row">
-        <mwl-calendar
-          events="events"
-          view="calendarView"
-          view-title="calendarTitle"
-          current-day="calendarDay"
-          edit-event-html="'<i class=\'glyphicon glyphicon-pencil\'></i>'"
-          delete-event-html="'<i class=\'glyphicon glyphicon-remove\'></i>'"
-          auto-open="true">
-        </mwl-calendar>
-      </div>
-      </div>
-
-      <br>
-      <ui-gmap-google-map center='map.center' zoom='map.zoom'>
-        <ui-gmap-marker idKey="$index" data-ng-repeat="marker in viaje.ciudades" coords="marker">
-          <ui-gmap-window isIconVisibleOnClick="true">
-            <p>
-              {{marker.message}}
-            </p>
-          </ui-gmap-window>
-        </ui-gmap-marker>
-        <ui-gmap-polyline path="viaje.ciudades" stroke="{color: '#103AED'}"></ui-gmap-polyline>
-      </ui-gmap-google-map>
-
-
-  </div>
-</div>
-  
-</script>
-
-
-
-
-
-
-<script type="text/ng-template" id="/detalle_ciudad.html">
-  <div class="col-md-9 col-md-offset-1">
-    
-    <div class="page-header">
-      <button class="btn btn-primary back-btn" ng-click="gotoHomePage();">
-        <span class="glyphicon glyphicon-home"></span> Home Page
-      </button>
-      
-      <h2 class ="glyphicon glyphicon-plane"> 
-          {{viaje.nombre}}
-      </h2>
-
-      <h3> 
-          {{ciudad.nombre}}
-      </h3>
-
-      <div  class="form-group" id="col1">
-
-        <br>
-        <div>
-            <h4>Seleccione un hotel</h4>     
-
-
-            <ui-select ng-model="hotel.selected" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
-              <ui-select-match placeholder="Tipee el nombre de algun hotel">{{$select.selected.nombre}}</ui-select-match>
-              <ui-select-choices repeat="hotel in hoteles | filter: $select.search">
-                <span ng-bind-html="hotel.nombre | highlight: $select.search"></span>
-              </ui-select-choices>
-            </ui-select>
-
-            <button type="button" class="btn btn-primary back-btn" ng-hide="hotel.selected == null" style="float: left" ng-click="openPunto(hotel.selected)">Detalles</button>
-
-            </p>
-
-        </div>
-          
-        </br>
-
-        <h4>Puntos de interes</h4>
-        
-        <input type="text" class="form-control" placeholder="Agrega un punto de interes" style="width: 300px;" ng-model="punto_interes" name="" 
-         id="Autocomplete"  ng-autocomplete="result" details="details" options="options" >
-
-        
-        <button type="button" class="btn btn-success" ng-click="addNewChoice()">Agregar punto interes</button>
-      
-        <div class="form-group" data-ng-repeat="punto in ciudad.puntosDeInteres" > 
-            <button class="btn btn-danger" ng-click="borrarPuntoDeInteres(punto);" style="float: right">
-                <span class="glyphicon glyphicon-trash"></span>
-            </button> 
-            <button class="btn btn-primary back-btn" ng-click="openPunto(punto)" style="float: right">
-                <span class="glyphicon glyphicon-comment"></span>
-            </button>     
-            <div style="overflow: hidden; padding-right: .5em;">
-                {{punto.nombre}}
-            </div>
-        </div>
-       </div>
+  <head>
 
     
-       <div id="col2"> 
-        <ui-gmap-google-map center='map.center' zoom='map.zoom' id="mapapuntos">
-          <ui-gmap-marker idKey="$index" data-ng-repeat="marker in ciudad.puntosDeInteres" coords="marker">
-            <ui-gmap-window isIconVisibleOnClick="true">
-              <p>
-                {{marker.nombre}}
-              </p>
-            </ui-gmap-window>
-          </ui-gmap-marker>
-         </ui-gmap-google-map>
-        <br>
-        <br>
-       </div> 
+    <title>Vacaciones permanentes</title>
 
-      <div id="map-canvas"></div>
-    </div>
-  </div>
-</script>
+    <style>
+        html, body, #map-canvas {
+          height: 0%;
+          margin: 0px;
+          padding: 0px
+        }
+      </style>
 
-<!-- MODAL TEMPLATE-->
- 
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/javascripts/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/javascripts/lib/angular-dialog-service/dist/dialogs.min.css" />
+    <link rel="stylesheet" href="/javascripts/lib/ng-tags-input/ng-tags-input.min.css" />
+    <link rel="stylesheet" href="/javascripts/lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.css" />
+    <link rel="stylesheet" href="/javascripts/lib/angular-ui-select/dist/select.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
 
-<script type="text/ng-template" id="modalDetalles.html">
-
-        <div class="modal-header">
-            <h3 class="modal-title">{{punto.nombre}}</h3>
-        </div>
-       
-        <div id="info-content">
-          <table>
-            <tr >
-              <td ng-show="is_direccion"> <u>Direccion</u>: {{punto.direccion}}</td>
-            </tr>
-            <tr >
-              <td ng-show="is_numero_telefono"> <u>Telefono</u>: {{punto.numero_telefono}}</td>
-            </tr>
-            <tr >
-              <td ng-show="is_numero_telefono_internacional"><u>Telefono internacional</u>: {{punto.numero_telefono_internacional}}</td>
-            </tr>
-            <tr >
-              <td ng-show="is_raiting" >
-              <div> <u>Calificación</u>: 
-                <rating  ng-model="rate" value="rate" max="max" readonly="isReadonly"  ></rating>
-                <span 
-                 ng-class="{'label label-warning label-as-badge': percent<30, 'label label-info label-as-badge': percent>=30 && percent<70, 'label label-success label-as-badge': percent>=70}" >{{percent}}%</span>
-              </div>
-              </td>
-            </tr>
-            <tr >
-              <td  ng-show="is_website"> <u>Web</u>: <a href={{punto.website}}> {{punto.website}}</a> </td>
-            </tr>
-            <tr >
-              <td  ng-show="is_comentarios_huespedes">
-                <button type="button" class="btn btn-primary" ng-click="isCollapsed = !isCollapsed" data-target="#demo">
-                   Ver comentarios
-                </button>
-
-                <div id="demo" collapse="isCollapsed"> 
-                <br> 
-                   <div ng-repeat="comentario in punto.comentarios_huespedes" class="well well-sm">
-                     {{comentario.texto}} 
-                     <br>
-                     <b> {{comentario.autor}} </b>
-                  </div>
-                </div>
-              </td>
-            </tr> 
-          </table>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-        </div>
-    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>-->
 
 
- 
+    <!-- bower:js-->
+    <script src="/javascripts/lib/jquery/dist/jquery.js"></script>
+    <script src="/javascripts/lib/angular/angular.js"></script>
+    <script src="/javascripts/lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/javascripts/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/javascripts/lib/moment/moment.js"></script>
+    <script src="/javascripts/lib/angular-moment/angular-moment.js"></script>
+    <script src="/javascripts/lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/javascripts/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/javascripts/lib/angular-translate/angular-translate.js"></script>
+    <script src="/javascripts/lib/angular-dialog-service/dist/dialogs.min.js"></script>
+    <script src="/javascripts/lib/angular-dialog-service/dist/dialogs-default-translations.min.js"></script>
+    <script src="/javascripts/lib/lodash/dist/lodash.compat.js"></script>
+    <script src="/javascripts/lib/angular-google-maps/dist/angular-google-maps.js"></script>
+    <script src="/javascripts/lib/ng-tags-input/ng-tags-input.min.js"></script>
+    <script src="/javascripts/lib/ngAutocomplete/src/ngAutocomplete.js"></script>
+    <script src="/javascripts/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js"></script>
+    <script src="/javascripts/lib/angular-ui-select/dist/select.js"></script> 
+    <!-- endbower-->
+
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    
+    <!-- COMENTÁ ESTO HASTA.... 
+    <link rel="stylesheet" href="/stylesheets/angular-bootstrap-calendar.css">
+    <link rel="stylesheet" href="/stylesheets/select.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+    <script src="/javascripts/directories/moment.js"></script>
+    <script src="/javascripts/directories/angular-moment.min.js"></script>
+    <script src="/javascripts/directories/ngAutocomplete.js"></script>
+    <script src="/javascripts/directories/angular-google-maps.js"></script>
+    <script src="/javascripts/directories/lodash.js"></script>
+    <script src="//code.angularjs.org/1.3.0/angular-sanitize.min.js"></script> 
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+
+    <script src="/javascripts/directories/angular-bootstrap-calendar-tpls.js"></script>
+    <script src="/javascripts/directories/select.js"></script>
+
+    <!-- ....ACÁ -->
+
+    <!-- ------------------------------------- ENTREGA 1 ----------------------------- -->
+
+    <script src="/javascripts/directories/dialogs.min.js"></script>
+    
+    <!-- ------------------------------------- ENTREGA 1 ----------------------------- -->
+
+    
+    <script src="/javascripts/angularApp.js"></script>
+    
+    <script src="/javascripts/controllers/mainCtrl.js"></script>
+    <script src="/javascripts/controllers/authCtrl.js"></script>
+    <script src="/javascripts/controllers/navCtrl.js"></script>
+    <script src="/javascripts/controllers/viajesCtrl.js"></script>
+    <script src="/javascripts/controllers/newViajeCtrl.js"></script>
+    <script src="/javascripts/controllers/DetalleCiudadCtrl.js"></script>
+
+    <script src="/javascripts/services/authFactory.js"></script>
+    <script src="/javascripts/services/viajesFactory.js"></script>
 
 
+  </head>
 
-
-<script type="text/ng-template" id="/register.html">
-<div class="col-md-6 col-md-offset-3">
-  <div class="page-header">
-    <h1>Flapper News</h1>
-  </div>
-
-  <div ng-show="error" class="alert alert-danger row">
-    <span>{{ error.message }}</span>
-  </div>
-
-  <form ng-submit="register()"
-    style="margin-top:30px;">
-    <h3>Register</h3>
-
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Username" ng-model="user.username"></input>
-    </div>
-    <div class="form-group">
-      <input type="password" class="form-control" placeholder="Password" ng-model="user.password"></input>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-  </form>
-</div>
-</script>
-
-<script type="text/ng-template" id="/login.html">
-  <div class="col-md-6 col-md-offset-3">
-    <div class="page-header">
-      <h1>Flapper News</h1>
+  <body ng-app="flapperNews">
+    <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
+      <ul class="nav navbar-nav">
+        <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+        <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()"> <span class="glyphicon glyphicon-log-out"></span> Desloguearse</a></li>
+        <li ng-hide="isLoggedIn()"><a href="/#/login"> <span class="glyphicon glyphicon-log-in"></span> Loguearse</a></li>
+        <li ng-hide="isLoggedIn()"><a href="/#/register">Registrarse</a></li>
+      </ul>
+    </nav>
+    <div class="row">
+      
+        <ui-view></ui-view>  
+     
     </div>
 
-    <div ng-show="error" class="alert alert-danger row">
-      <span>{{ error.message }}</span>
-    </div>
-
-    <form ng-submit="logIn()" style="margin-top:30px;">
-      <h3>Log In</h3>
-
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Username" ng-model="user.username"></input>
-      </div>
-      <div class="form-group">
-        <input type="password" class="form-control" placeholder="Password" ng-model="user.password"></input>
-      </div>
-      <button type="submit" class="btn btn-primary">Log In</button>
-    </form>
-  </div>
-  </script>
-</body>
+  </body>
 </html>
 

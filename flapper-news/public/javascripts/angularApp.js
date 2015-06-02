@@ -9,7 +9,7 @@ function($stateProvider, $urlRouterProvider) {
 $stateProvider
     .state('home', {
       url: '/home',
-      templateUrl: '/home.html',
+      templateUrl: '/templates/home.html',
       controller: 'MainCtrl',
       resolve: {
         viajePromise: ['viajes', function(viajes){
@@ -22,7 +22,7 @@ $stateProvider
   $stateProvider
     .state('viajes', {
       url: '/viajes/{id}',
-      templateUrl: '/viajes.html',
+      templateUrl: '/templates/viajes.html',
       controller: 'ViajesCtrl',
       resolve: {
           viaje: ['$stateParams', 'viajes', function($stateParams, viajes) {
@@ -34,7 +34,7 @@ $stateProvider
   $stateProvider
   .state('createViaje', {
     url: '/createViaje',
-    templateUrl: '/createViaje.html',
+    templateUrl: '/templates/createViaje.html',
     controller: 'NewViajeCtrl',
     resolve: {
         //viaje: {}
@@ -45,7 +45,7 @@ $stateProvider
   $stateProvider
     .state('detalleCiudad', {
       url: '/ciudad/{idc}',
-      templateUrl: '/detalle_ciudad.html',
+      templateUrl: '/templates/detalle_ciudad.html',
       controller: 'DetalleCiudadCtrl',
       resolve: {
           ciudad: ['$stateParams', 'viajes', function($stateParams, viajes) {
@@ -60,7 +60,7 @@ $stateProvider
   $stateProvider
     .state('login', {
       url: '/login',
-      templateUrl: '/login.html',
+      templateUrl: '/templates/login.html',
       controller: 'AuthCtrl',
       onEnter: ['$state', 'auth', function($state, auth){
         if(auth.isLoggedIn()){
@@ -72,7 +72,7 @@ $stateProvider
   $stateProvider   
     .state('register', {
       url: '/register',
-      templateUrl: '/register.html',
+      templateUrl: '/templates/register.html',
       controller: 'AuthCtrl',
       onEnter: ['$state', 'auth', function($state, auth){
         if(auth.isLoggedIn()){
