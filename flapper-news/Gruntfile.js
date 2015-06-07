@@ -13,12 +13,6 @@ module.exports = function(grunt) {
       js: ['concat:js']
     },
 
-    compile: {
-      css: ['jade', 'wiredep'],
-      styles: ['concat:styles', 'sass', 'clean:compile'],
-      js: ['concat:js']
-    },
-
     wiredep: {
       task: {
         src: ['views/*.ejs', 'public/stylesheets/*.css']
