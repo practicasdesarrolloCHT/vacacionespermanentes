@@ -238,7 +238,7 @@ initialize();
 
     var modalInstance = $modal.open({
       animation: true,
-      templateUrl: 'modalDetalles.html',
+      templateUrl: '/templates/modalDetalles.html',
       controller: 'DetalleCtrl',
       size: size,
       resolve: {
