@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "mocha",
+    "test": "grunt --verbose",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -25,6 +25,11 @@
     "grunt": "^0.4.5",
     "grunt-contrib-jshint": "^0.11.2",
     "grunt-wiredep": "~2.0.0",
-    "jshint": "^2.8.0"
+    "jasmine-core": "^2.3.4",
+    "jshint": "^2.8.0",
+    "karma": "^0.12.36",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "phantomjs": "^1.9.17"
   }
 }
