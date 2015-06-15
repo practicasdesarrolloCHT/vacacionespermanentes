@@ -6,6 +6,11 @@ module.exports = function(grunt) {
       all: ['Gruntfile.js', 'hello.js']
     },
     
+    karma: {
+      unit: {
+        configFile: 'my.conf.js'
+      }
+    },
 
      compile: {
       ejs: ['jade', 'wiredep'],
@@ -24,6 +29,7 @@ module.exports = function(grunt) {
 
   });
 
+  grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-wiredep');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.registerTask('default', 'jshint');

@@ -1,11 +1,9 @@
-
-
 describe("MainCtrl", function() {
 
     var scope, controller;
 
     beforeEach(function(){
-        module('flapper-news');
+        module('flapperNews');
 
     });
 
@@ -15,7 +13,7 @@ describe("MainCtrl", function() {
     }));
 
     it("fills the foos", function() {
-        expect(scope.test).toEqual("Viajes");
+        expect(scope.test).toEqual('Viajes');
     });
 });
 

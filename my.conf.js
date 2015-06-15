@@ -15,15 +15,22 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-    'public/lib/angular/*.js',
-    'public/lib/**/*.js',
-    'app.js',
-    'public/javascripts/*.js',
-    'public/javascripts/controllers/*.js',
-    'public/javascripts/services/*.js',
-    'models/*.js',
-    'public/templates/*.html',
-    'test/*.js'
+    'public/javascripts/lib/angular/angular.js',
+      'public/javascripts/lib/angular-ui-router/release/angular-ui-router.js',
+      'public/javascripts/lib/angular-mocks/angular-mocks.js',
+      'public/javascripts/lib/angular-sanitize/angular-sanitize.js',
+      'public/javascripts/lib/angular-ui-select/dist/select.js',
+      'public/javascripts/lib/angular-bootstrap/ui-bootstrap.js',
+      'public/javascripts/lib/angular-dialog-service/dist/dialogs.min.js',
+      'public/javascripts/lib/ngAutocomplete/src/ngAutocomplete.js',
+      'public/javascripts/lib/angular-google-maps/dist/angular-google-maps.js',
+      'public/javascripts/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar.js',
+      'public/javascripts/angularApp.js',
+      'public/javascripts/services/viajesFactory.js',
+      'public/javascripts/services/authFactory.js',
+      'public/javascripts/controllers/mainCtrl.js',
+
+      'test/*.js'
     ],
 
 
@@ -63,7 +70,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
