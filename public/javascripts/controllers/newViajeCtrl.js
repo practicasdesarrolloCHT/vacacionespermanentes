@@ -6,16 +6,7 @@ app.controller('NewViajeCtrl', [
 'dialogs',
 function($scope, viajes, auth, dialogs){
 
-   $scope.markerList = []
-   $scope.result = '';
-    $scope.options = {
-      types: '(cities)',
-      watchEnter: true
-    };    
-    $scope.details = '';
-
-
-  $scope.ciudades = [];
+  
   $scope.isLoggedIn = auth.isLoggedIn;
   
   $scope.gotoHomePage = function(){
@@ -23,6 +14,7 @@ function($scope, viajes, auth, dialogs){
   };
 
   $scope.addViaje = function(){
+    
     if(!$scope.fecha_inicio || $scope.fecha_inicio === '' || !$scope.fecha_fin || $scope.fecha_fin === '' ) { return; }
     
     if(moment($scope.fecha_fin).isBefore($scope.fecha_inicio)) { 
@@ -30,23 +22,19 @@ function($scope, viajes, auth, dialogs){
         return;
     } 
 
-    destinos = [];
-    $scope.ciudades.forEach(function(ciudad) {
-        destinos.push(ciudad.nombre);
-      });
+    
 
     viajes.create({
       nombre: $scope.nombre,
       usuario: "",
       fecha_inicio: $scope.fecha_inicio,
       fecha_fin: $scope.fecha_fin,
-      ciudades: destinos
+
     });	
     $scope.nombre = '';
     $scope.fecha_inicio = '';
     $scope.fecha_fin = '';
-    $scope.ciudad = '';
-    $scope.ciudades = [];
+
   };
 
   $scope.openFrom = function($event) {

@@ -15,8 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-    "http://maps.googleapis.com/maps/api/js?sensor=false&language=en",
-    'public/javascripts/lib/angular/angular.js',
+      "http://maps.googleapis.com/maps/api/js?sensor=false&language=en",
+      'public/javascripts/lib/angular/angular.js',
       'public/javascripts/lib/angular-ui-router/release/angular-ui-router.js',
       'public/javascripts/lib/angular-mocks/angular-mocks.js',
       'public/javascripts/lib/angular-sanitize/angular-sanitize.js',
@@ -25,14 +25,19 @@ module.exports = function(config) {
       'public/javascripts/lib/angular-dialog-service/dist/dialogs.min.js',
       'public/javascripts/lib/ngAutocomplete/src/ngAutocomplete.js',
       'public/javascripts/lib/angular-google-maps/dist/angular-google-maps.js',
+      //'public/javascripts/lib/moment/src/moment.js',
+      'public/javascripts/lib/angular-moment/angular-moment.js',
+      
       'public/javascripts/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar.js',
       'public/javascripts/angularApp.js',
       'public/javascripts/services/viajesFactory.js',
       'public/javascripts/services/authFactory.js',
       'public/javascripts/controllers/mainCtrl.js',
       'public/javascripts/controllers/detalleCiudadCtrl.js',
+      'public/javascripts/controllers/newViajeCtrl.js',
 
-      'test/*.js'
+      'test/newViajeTest.js',
+      'test/test.js'
     ],
 
 
