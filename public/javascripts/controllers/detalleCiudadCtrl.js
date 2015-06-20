@@ -37,7 +37,7 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
 
 
 
-   centrarMapa = function(lat,longg) {
+   $scope.centrarMapa = function(lat,longg) {
 
     $scope.map = { center:{ latitude: lat, 
                             longitude: longg }, zoom: 15 };
@@ -68,7 +68,7 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
 
       $scope.guardarEdicionDeCiudad();
       
-      centrarMapa(latt,longg);
+      $scope.centrarMapa(latt,longg);
 
       $scope.punto_interes = "";
 
@@ -102,7 +102,7 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
            longg = $scope.ciudad.longitude }
       
       $scope.guardarEdicionDeCiudad();
-      centrarMapa(latt,longg);
+      $scope.centrarMapa(latt,longg);
 
     },function(btn){
       //agregar mensaje de cancelación
@@ -126,7 +126,7 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
 
   } 
 
-  centrarMapa(currentLat,currentLong);
+  $scope.centrarMapa(currentLat,currentLong);
 
 
 
@@ -141,7 +141,7 @@ $scope.hotel = {};
 function initialize() {
   
 
-  map = new google.maps.Map(document.getElementById('map-canvas'), {
+  map = new google.maps.Map(document.createElement('div'), {
     center: point,
     zoom: 15
   });

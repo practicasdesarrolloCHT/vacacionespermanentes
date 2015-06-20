@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      "http://maps.googleapis.com/maps/api/js?sensor=false&language=en",
+      "https://maps.googleapis.com/maps/api/js?libraries=places",
       'public/javascripts/lib/angular/angular.js',
       'public/javascripts/lib/angular-ui-router/release/angular-ui-router.js',
       'public/javascripts/lib/angular-mocks/angular-mocks.js',
@@ -35,9 +35,7 @@ module.exports = function(config) {
       'public/javascripts/controllers/mainCtrl.js',
       'public/javascripts/controllers/detalleCiudadCtrl.js',
       'public/javascripts/controllers/newViajeCtrl.js',
-
-      'test/newViajeTest.js',
-      'test/test.js'
+      'test/*.js'
     ],
 
 

@@ -5,6 +5,7 @@ describe("NewViajeCtrl", function() {
     var viajeFactory;
 
 
+
     beforeEach(function(){
       module('flapperNews', function($provide) {
 
@@ -30,7 +31,6 @@ describe("NewViajeCtrl", function() {
         controller = $controller('NewViajeCtrl', { $scope: scope });
     }));
 
-
     it("Test de llamada al método del gotoHomePage", function() {
         spyOn(viajeFactory,"gotoHomePage");
         scope.gotoHomePage();
@@ -52,10 +52,12 @@ describe("NewViajeCtrl", function() {
 
     it("Cuando la fecha de fin es mayor a la de inicio se guarda el viaje con los valores que estan en el scope y luego limpiar las variables del scope.", function() {
 
+
         moment= function(string) {
         return {   isBefore: function(mensaje){  return false } }
         };
         
+
         scope.fecha_fin='Fri Jun 19 2015 00:00:00 GMT-0300';
         scope.fecha_inicio='Fri Feb 28 2014 00:00:00 GMT-0300';
         scope.nombre="Un nombre de viaje";
@@ -64,8 +66,9 @@ describe("NewViajeCtrl", function() {
                             nombre: "Un nombre de viaje",
                             usuario: "",
                             fecha_inicio: 'Fri Feb 28 2014 00:00:00 GMT-0300',
-                            fecha_fin: 'Fri Jun 19 2015 00:00:00 GMT-0300'      }
-
+                            fecha_fin: 'Fri Jun 19 2015 00:00:00 GMT-0300'      
+                         }
+        
         spyOn(viajeFactory,"create");
         scope.addViaje();
         expect(viajeFactory.create).toHaveBeenCalledWith(viaje_a_guardar);
@@ -73,13 +76,9 @@ describe("NewViajeCtrl", function() {
         expect(scope.fecha_fin).toEqual("");
         expect(scope.fecha_inicio).toEqual("");
         expect(scope.nombre).toEqual("");
-        
-    });
-
-    it("Valores iniciales de las variables de scope", function() {
-   
 
     });
+
 
 
 });

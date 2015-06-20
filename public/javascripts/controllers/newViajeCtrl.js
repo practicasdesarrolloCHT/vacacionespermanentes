@@ -14,16 +14,13 @@ function($scope, viajes, auth, dialogs){
   };
 
   $scope.addViaje = function(){
-    
+
     if(!$scope.fecha_inicio || $scope.fecha_inicio === '' || !$scope.fecha_fin || $scope.fecha_fin === '' ) { return; }
     
     if(moment($scope.fecha_fin).isBefore($scope.fecha_inicio)) { 
         dlg = dialogs.notify('No puedes comenzar un viaje si ya lo has terminado!','La fecha de fin no puede ser menor a la fecha de fin.');
         return;
     } 
-
-    
-
     viajes.create({
       nombre: $scope.nombre,
       usuario: "",
