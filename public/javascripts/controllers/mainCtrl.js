@@ -27,7 +27,7 @@ function($scope,viajes,auth,dialogs){
   };
 
   $scope.borrarViaje = function(viaje){
-    dlg = dialogs.confirm('Por favor confirme','Esta seguro que quiere borrar el viaje: ' + viaje.nombre + '??');
+    dlg = dialogs.confirm('Por favor confirme','Esta seguro que quiere borrar el viaje: ' + viaje.nombre + '?');
     dlg.result.then(function(btn){
       viajes.borrarViaje(viaje._id, $scope.viajes.indexOf(viaje));
       //agregar mensaje de éxito en el borrado

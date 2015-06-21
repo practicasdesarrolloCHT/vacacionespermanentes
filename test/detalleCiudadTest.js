@@ -8,38 +8,33 @@ describe("DetalleCiudadCtrl", function() {
     beforeEach(function(){
       module('flapperNews', function($provide) {
 
-    dialogs = {
-
-        confirm: function(titulo,mensaje){ }
-       }  
-
-            
-      $provide.value('dialogs', dialogs);
+        dialogs = {   confirm: function(titulo,mensaje){ }     }  
+           
+        $provide.value('dialogs', dialogs);
 
 
-
-
-      ciudad = {
-                    "_id": "id1",
-                    "nombre" : "Jacksonville, Florida, Estados Unidos",
-                    "cantidadDeDias" : 7,
-                    "latitude" : 30.3321838,
-                    "longitude" : -81.65565099999998,
-                    "message" : "Destino numero 1",
-                    "pais" : "US",
-                    "puntosDeInteres" : [
-                            {
-                                    "nombre" : "The Jacksonville Landing, Independent Drive, Jacksonville, Florida, Estados Unidos",
-                                    "direccion" : "2 W Independent Dr, Jacksonville, FL 3220 2, Estados Unidos",
-                                    "latitude" : 30.324827,
-                                    "longitude" : -81.65988700000003,
-                                    "calificacion" : 3.6,
-                                    "website" : "http://www.jacksonvillelanding.com/"
-                            }
-                    ],
-                    "hotelReference" : "Grand Lodge of Florida"
-                }      
-      $provide.value('ciudad', ciudad);
+         ciudad = {
+                        "_id": "id1",
+                        "nombre" : "Jacksonville, Florida, Estados Unidos",
+                        "cantidadDeDias" : 7,
+                        "latitude" : 30.3321838,
+                        "longitude" : -81.65565099999998,
+                        "message" : "Destino numero 1",
+                        "pais" : "US",
+                        "puntosDeInteres" : [
+                                {
+                                        "nombre" : "The Jacksonville Landing, Independent Drive, Jacksonville, Florida, Estados Unidos",
+                                        "direccion" : "2 W Independent Dr, Jacksonville, FL 3220 2, Estados Unidos",
+                                        "latitude" : 30.324827,
+                                        "longitude" : -81.65988700000003,
+                                        "calificacion" : 3.6,
+                                        "website" : "http://www.jacksonvillelanding.com/"
+                                }
+                        ],
+                        "hotelReference" : "Grand Lodge of Florida"
+                    }      
+          
+          $provide.value('ciudad', ciudad);
     });
 
     });
@@ -48,26 +43,19 @@ describe("DetalleCiudadCtrl", function() {
         viajeFactory = _viajes_;
     }));
 
-    beforeEach(inject(function ($q) {
-        q =$q
-            
-        }));
+    beforeEach(inject(function ($q) {  q =$q  }));
 
     beforeEach(inject(function($controller, $rootScope) {
         
         scope = $rootScope.$new();
         controller = $controller('DetalleCiudadCtrl', { $scope: scope });
 
-        scope.hoteles= [
+        /*scope.hoteles= [
                             {"nombre":"Grand Lodge of Florida","id":"ChIJ_XTuTRi35YgROweRBPKIdpo","direccion":"220 North Ocean Street, Jacksonville, FL 32202, Estados Unidos","numero_telefono":"(800) 375-2339","numero_telefono_internacional":"+1 800-375-2339","website":"http://www.glflamason.org/"},
                             {"nombre":"Windsom Travel, Travel Agent","id":"ChIJjwJUrhe35YgRJBV1M_IccvA","direccion":"223 West Adams Street, Jacksonville, FL 32202, Estados Unidos","numero_telefono":"(904) 562-2075","numero_telefono_internacional":"+1 904-562-2075"},
                             {"nombre":"omni hotel","id":"ChIJCRW-9SK35YgR_aBvOllWX9Y","direccion":"Jacksonville, FL, Estados Unidos"}
-                        ]
- 
-
-
-
-    }));
+                        ]*/
+     }));
 
 
     it("Testando que el centrar mapa cambia los valores del scope map para volver a centrar el mapa", function() {
