@@ -85,8 +85,8 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
 
   $scope.borrarPuntoDeInteres = function(punto_interes) {
     dlg = dialogs.confirm('Por favor confirme','¿Esta seguro que quiere borrar el punto de interes: ' + punto_interes.nombre + '?');
-    
-    dlg.result.then(function(btn){
+
+    dlg.result.then(function(){
       
       index = $scope.ciudad.puntosDeInteres.indexOf(punto_interes);
       if (index > -1) $scope.ciudad.puntosDeInteres.splice(index, 1);
@@ -104,7 +104,7 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
       $scope.guardarEdicionDeCiudad();
       $scope.centrarMapa(latt,longg);
 
-    },function(btn){
+    },function(){
       //agregar mensaje de cancelación
     }); 
 
@@ -169,7 +169,7 @@ function callback(results, status) {
 
 };
 
-function obtenerDetalles(details) {
+$scope.obtenerDetalles = function(details) {
 
   var informacion = {};
   informacion.nombre = details.name;
@@ -217,7 +217,7 @@ function savePlace(place) {
   $scope.service_googlemaps.getDetails(request, function(details, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
 
-      informacion = obtenerDetalles(details);
+      informacion = $scope.obtenerDetalles(details);
       $scope.hoteles.push(informacion);
 
       if ($scope.ciudad.hotelReference){
