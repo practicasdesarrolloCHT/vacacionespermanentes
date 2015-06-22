@@ -93,8 +93,8 @@
     <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
       <ul class="nav navbar-nav">
         <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
-        <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()"> <span class="glyphicon glyphicon-log-out"></span> Desloguearse</a></li>
-        <li ng-hide="isLoggedIn()"><a href="/#/login"> <span class="glyphicon glyphicon-log-in"></span> Loguearse</a></li>
+        <li ng-show="isLoggedIn()"><a id="desloguearse" href="" ng-click="logOut()"> <span class="glyphicon glyphicon-log-out"></span> Desloguearse</a></li>
+        <li ng-hide="isLoggedIn()"><a id="loguearse" href="/#/login"> <span class="glyphicon glyphicon-log-in"></span> Loguearse</a></li>
         <li ng-hide="isLoggedIn()"><a href="/#/register">Registrarse</a></li>
       </ul>
     </nav>

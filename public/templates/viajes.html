@@ -4,15 +4,15 @@
         <button class="btn btn-primary back-btn" ng-click="gotoHomePage();">
           <span class="glyphicon glyphicon-home"></span> Home Page
         </button>
-        <h3 class ="glyphicon glyphicon-plane"> 
+        <h3 class ="glyphicon glyphicon-plane" id="nombre_viaje"> 
             {{viaje.nombre}}
         </h3>
       </div>
       <table>
-        <tr><td><u>Usuario</u>: {{viaje.usuario}}</td></tr>
+        <tr><td id="usuario_nombre"><u>Usuario</u>: {{viaje.usuario}}</td></tr>
         <tr><td> <u>Fechas</u> </td></tr>
-        <tr> <td><pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre></td></tr>
-        <tr> <td><pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre></td></tr>
+        <tr> <td id="fecha_inicio_text"><pre>Fecha inicio: <em>{{viaje.fecha_inicio | date:'fullDate' }}</em></pre></td></tr>
+        <tr> <td id="fecha_fin_text"><pre>Fecha fin   : <em>{{viaje.fecha_fin | date:'fullDate' }}</em></pre></td></tr>
         <tr><td><u>Ciudades</u>:</td></tr>
       </table>
       
@@ -27,11 +27,11 @@
       <!--{{details}}-->
 
       <div class="form-group" data-ng-repeat="ciudad in viaje.ciudades"> 
-       <button class="btn btn-danger" ng-click="borrarCiudad(ciudad);" style="float: right">
+       <button class="btn btn-danger" ng-click="borrarCiudad(ciudad);" style="float: right" id="borrar_esta_ciudad">
             <span class="glyphicon glyphicon-trash"></span>
         </button>      
         <div style="overflow: hidden; padding-right: .5em;">
-            <a href="#/ciudad/{{ciudad._id}}"> {{ciudad.nombre}}</a>
+            <a href="#/ciudad/{{ciudad._id}}" id="ciudad_href"> {{ciudad.nombre}}</a>
             <td> / {{ciudad.cantidadDeDias}} Dias </td>
         </div>
       </div>
