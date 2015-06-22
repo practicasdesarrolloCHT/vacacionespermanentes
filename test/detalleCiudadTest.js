@@ -48,6 +48,7 @@ describe("DetalleCiudadCtrl", function() {
     beforeEach(inject(function($controller, $rootScope) {
         
         scope = $rootScope.$new();
+        
         controller = $controller('DetalleCiudadCtrl', { $scope: scope });
 
         /*scope.hoteles= [

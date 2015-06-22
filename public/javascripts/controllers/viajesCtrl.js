@@ -38,7 +38,7 @@ function($scope, viajes, viaje, dialogs, auth){
 
   $scope.map = { center: { latitude: currentLat, longitude: currentLong }, zoom: currentZoom };
 
-  mostrarActividad();
+  
 
   $scope.agregarCiudad = function(){
     var ciudadNro = $scope.viaje.ciudades.length+1;
@@ -67,7 +67,7 @@ function($scope, viajes, viaje, dialogs, auth){
        $scope.viaje.ciudades.push(ciudad);
        $scope.map = { center:{ latitude: ciudadLat, longitude: ciudadLong }, zoom: 10 };
        $scope.nombre_ciudad = "";
-       mostrarActividad();
+       $scope.mostrarActividad();
     })
   }
 
@@ -112,7 +112,7 @@ function($scope, viajes, viaje, dialogs, auth){
   //};
 
   $scope.borrarCiudad = function(ciudad) {
-    dlg = dialogs.confirm('Por favor confirme','Esta seguro que quiere borrar la ciudad: ' + ciudad.nombre + '??');
+    dlg = dialogs.confirm('Por favor confirme','Esta seguro que quiere borrar la ciudad: ' + ciudad.nombre + '?');
     dlg.result.then(function(btn){
       var indiceDelViaje = viajes.viajes.map(function(el){return el._id;}).indexOf($scope.viaje._id);
       var indiceDeLaCiudad = viaje.ciudades.indexOf(ciudad);
@@ -146,7 +146,7 @@ function($scope, viajes, viaje, dialogs, auth){
 ///////////////////////////////////////////// CALENDAR
 
 
-function mostrarActividad(){
+$scope.mostrarActividad = function(){
    $scope.events = [];
    var coloresDeActividad = ['important', 'warning', 'info', 'inverse', 'success','special']
    var currentFecha = $scope.viaje.fecha_inicio;
@@ -169,6 +169,8 @@ function mostrarActividad(){
     currentFecha = currentFechaFin;
   }
 }
+
+$scope.mostrarActividad();
 $scope.calendarView = 'month';
 $scope.calendarDay = Date();
 //$scope.calendarTitle = 'month';

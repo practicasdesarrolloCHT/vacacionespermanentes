@@ -35,6 +35,7 @@ module.exports = function(config) {
       'public/javascripts/controllers/mainCtrl.js',
       'public/javascripts/controllers/detalleCiudadCtrl.js',
       'public/javascripts/controllers/newViajeCtrl.js',
+      'public/javascripts/controllers/viajesCtrl.js',
       'test/*.js'
     ],
 
