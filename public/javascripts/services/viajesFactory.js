@@ -41,7 +41,6 @@ app.factory('viajes', ['$http', 'auth', function($http, auth){
   };
 
   o.guardarEdicionDeCiudad = function(id, ciudad){
-    console.log("aca estoy")
     return $http.put('/ciudad/'+id, ciudad, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     });

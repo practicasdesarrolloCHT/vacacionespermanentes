@@ -6,11 +6,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
+var config = require('./config');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
-mongoose.connect('mongodb://localhost/news');
+if (process.env.NODE_ENV == undefined) {
+  process.env.NODE_ENV = "test";
+}
+mongoose.connect(config.db[process.env.NODE_ENV]);
 
 require('./models/Users');
 require('./config/passport');
