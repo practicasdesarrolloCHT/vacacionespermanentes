@@ -5,11 +5,11 @@
         <span class="glyphicon glyphicon-home"></span> Home Page
       </button>
       
-      <h2 class ="glyphicon glyphicon-plane"> 
+      <h2 class ="glyphicon glyphicon-plane" id="nombre_viaje"> 
           {{viaje.nombre}}
       </h2>
 
-      <h3> 
+      <h3 id="nombre_ciudad"> 
           {{ciudad.nombre}}
       </h3>
 
@@ -21,7 +21,7 @@
 
 
             <ui-select ng-model="hotel.selected" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
-              <ui-select-match placeholder="Tipee el nombre de algun hotel">{{$select.selected.nombre}}</ui-select-match>
+              <ui-select-match placeholder="Tipee el nombre de algun hotel" id="nombre_hotel">{{$select.selected.nombre}}</ui-select-match>
               <ui-select-choices repeat="hotel in hoteles | filter: $select.search">
                 <span ng-bind-html="hotel.nombre | highlight: $select.search"></span>
               </ui-select-choices>
@@ -44,7 +44,7 @@
         <button type="button" class="btn btn-success" ng-click="addNewChoice()">Agregar punto interes</button>
       
         <div class="form-group" data-ng-repeat="punto in ciudad.puntosDeInteres" > 
-            <button class="btn btn-danger" ng-click="borrarPuntoDeInteres(punto);" style="float: right">
+            <button id="borrar_punto_interes" class="btn btn-danger" ng-click="borrarPuntoDeInteres(punto);" style="float: right">
                 <span class="glyphicon glyphicon-trash"></span>
             </button> 
             <button class="btn btn-primary back-btn" ng-click="openPunto(punto)" style="float: right">

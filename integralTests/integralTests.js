@@ -67,22 +67,9 @@ describe('Vacaciones Permanentes App', function() {
       return elem.getText();
     });
 
-    nombresDeViajes.then(function (textArr) {
-      expect(textArr[0]).toEqual("Viaje Protractor");
-    });
-
     fechasDeInicioDeViajes.then(function (textArr) {
       expect(textArr[0]).toEqual("Saturday, June 20, 2015"); // 20.06.2015 full date
     });
-
-    element(by.id('borrarViaje')).click();
-    element(by.css('[ng-click="no()"]')).click();
-
-    expect(listaViajes.count()).toEqual(1);
-
-    element(by.id('borrarViaje')).click();
-    element(by.css('[ng-click="yes()"]')).click();
-
     //listaViajes = element.all(by.repeater('viaje in viajes'));
 
     //console.log("viajeeeeee " + firstViaje.toString());

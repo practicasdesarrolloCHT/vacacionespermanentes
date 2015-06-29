@@ -44,6 +44,7 @@ function($scope, $modal, viajes, ciudad, dialogs, auth){
    }
 
    $scope.addNewChoice = function() {
+    console.log($scope.punto_interes)
   if(! ($scope.punto_interes==="") )
 
     {
