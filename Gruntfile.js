@@ -32,7 +32,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-wiredep');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.registerTask('default', 'jshint');
+  grunt.registerTask('default', ['jshint', 'karma']);
 
 
 
