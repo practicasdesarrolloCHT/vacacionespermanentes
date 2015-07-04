@@ -16,6 +16,11 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 
 
 var port = normalizePort(process.env.OPENSHIFT_NODEJS_PORT || 8080);
+
+console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa OPENSHIT")
+console.log(port)
+console.log(ipadress)
+
 var server;
 
 app.set('port', port);
