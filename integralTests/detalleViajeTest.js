@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
-//conectarse a una base nueva
-mongoose.connect('mongodb://localhost/test');
+   
+
 
 //Sólo para hacer que los pasos del protractor sean más lentos
 var origFn = browser.driver.controlFlow().execute;
@@ -10,7 +10,7 @@ browser.driver.controlFlow().execute = function() {
   var args = arguments;
 
   origFn.call(browser.driver.controlFlow(), function() {
-    return protractor.promise.delayed(100);
+    return protractor.promise.delayed(10);
   });
 
   return origFn.apply(browser.driver.controlFlow(), args);
@@ -18,10 +18,14 @@ browser.driver.controlFlow().execute = function() {
 //////////////////////////
 
 describe('Vacaciones Permanentes App', function() {
-  var listaViajes = [];
-  var dbUsers,dbViajes,dbCiudades;
-  
+var listaViajes = [];
+    var dbUsers,dbViajes,dbCiudades;
+
+
   beforeEach(function(){
+
+    //conectarse a una base nueva
+    
   	
     //limpiar la base cada vez que se quiere testear
     dbUsers = mongoose.connection.db.collection('users');
@@ -36,8 +40,6 @@ describe('Vacaciones Permanentes App', function() {
   	dbCiudades.drop(function(err, result) {
   		console.log("drop ciudades " + result)
   	});
-
-    browser.sleep(2000);
 
     browser.get('http://localhost:3000/#/register');
     
@@ -134,12 +136,13 @@ describe('Vacaciones Permanentes App', function() {
 
 it('Borrar una ciudad en el viaje y cancelar la alerta de confirmacion de borrado', function() {
 
+
   var ciudades = element.all(by.repeater('ciudad in viaje.ciudades'));
   var markers = element.all(by.repeater('marker in viaje.ciudades'));
 
   element(by.id('Autocomplete')).sendKeys("Buenos Aires, CABA, Argentina\n");
   element(by.model('cantidadDeDias')).sendKeys(7);
-  element(by.id('[ng-click="agregarCiudad()"]')).click();
+  element(by.css('[ng-click="agregarCiudad()"]')).click();
          
 
   expect(ciudades.count()).toEqual(1);
