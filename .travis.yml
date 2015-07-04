@@ -9,6 +9,6 @@ deploy:
  provider: openshift
  user: ruizdiazchristiand@gmail.com
  password: practicasch15
- domain: http://vacacionespermanentes-chrdtm.rhcloud.com/
+ domain: chrdtm
  app:
    master: vacacionespermanentes
