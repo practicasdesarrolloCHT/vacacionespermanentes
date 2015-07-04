@@ -1,8 +1,5 @@
 var mongoose = require('mongoose');
 
-//conectarse a una base nueva
-mongoose.connect('mongodb://localhost/test');
-
 //Sólo para hacer que los pasos del protractor sean más lentos
 var origFn = browser.driver.controlFlow().execute;
 
@@ -10,7 +7,7 @@ browser.driver.controlFlow().execute = function() {
   var args = arguments;
 
   origFn.call(browser.driver.controlFlow(), function() {
-    return protractor.promise.delayed(100);
+    return protractor.promise.delayed(10);
   });
 
   return origFn.apply(browser.driver.controlFlow(), args);
@@ -20,8 +17,12 @@ browser.driver.controlFlow().execute = function() {
 describe('Vacaciones Permanentes App', function() {
   var listaViajes = [];
   var dbUsers,dbViajes,dbCiudades;
+
   
   beforeEach(function(){
+
+    //conectarse a una base nueva
+    
   	
     //limpiar la base cada vez que se quiere testear
     dbUsers = mongoose.connection.db.collection('users');
