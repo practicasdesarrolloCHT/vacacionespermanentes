@@ -13,20 +13,9 @@ var passport = require('passport');
 if (process.env.NODE_ENV == undefined) {
   process.env.NODE_ENV = "test";
 }
-//
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
-  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-  process.env.OPENSHIFT_APP_NAME;
 
 
-  console.log("sadwaeqwewq " + connection_string);
-
-  mongoose.connect(connection_string);
-}
-else { mongoose.connect(config.db[process.env.NODE_ENV]); }
+mongoose.connect(process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/'+process.env.NODE_ENV);
 
 
 require('./models/Users');
