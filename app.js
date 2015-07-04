@@ -20,10 +20,14 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
   process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
   process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
   process.env.OPENSHIFT_APP_NAME;
+
+
+  console.log("sadwaeqwewq " + connection_string);
+
+  mongoose.connect(connection_string);
 }
-console.log("sadwaeqwewq " + connection_string);
-//
-mongoose.connect(connection_string);//config.db[process.env.NODE_ENV]);
+else { mongoose.connect(config.db[process.env.NODE_ENV]); }
+
 
 require('./models/Users');
 require('./config/passport');
