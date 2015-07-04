@@ -10,7 +10,7 @@ deploy:
  user: ruizdiazchristiand@gmail.com
  password: practicasch15
  domain: chrdtm
- app: vacacionespermanentes
- on:
-    repo: practicasdesarrolloCHT/vacacionespermanentes
-    branch: master
+ services:
+  - mongodb
+ app:
+   master: vacacionespermanentes
