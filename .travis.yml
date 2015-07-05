@@ -6,11 +6,6 @@ before_script:
   - npm install -g bower
   - bower install
 
-after_deploy:
- - echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
- - pwd
- - npm start
-
 deploy:
  provider: openshift
  user: ruizdiazchristiand@gmail.com
