@@ -6,6 +6,7 @@
     "test": "grunt --verbose",
     "start": "node ./bin/www"
   },
+  "main": "server.js",
 
   "dependencies": {
     "angular-moment": "^0.9.2",

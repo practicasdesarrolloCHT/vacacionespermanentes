@@ -6,7 +6,7 @@ before_script:
   - npm install -g bower
   - bower install
 
-after_success:
+after_deploy:
  - echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
  - pwd
  - npm start
