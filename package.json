@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "test": "grunt --verbose",
-    "start": "node ./bin/www"
+    "start": "bower && node ./bin/www"
   },
 
   "dependencies": {
