@@ -6,7 +6,7 @@
     "test": "grunt --verbose",
     "start": "bower install && node ./bin/www"
   },
-
+  "main": "./bin/www",
   "dependencies": {
     "angular-moment": "^0.9.2",
     "body-parser": "~1.12.0",
