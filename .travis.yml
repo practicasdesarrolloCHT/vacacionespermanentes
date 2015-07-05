@@ -6,7 +6,6 @@ before_script:
   - npm install -g grunt-cli
   - npm install -g bower
   - bower install
-
 deploy:
  provider: openshift
  user: ruizdiazchristiand@gmail.com
@@ -16,3 +15,4 @@ deploy:
   - mongodb
  app:
    master: vacacionespermanentes
+   development: vacacionespermanentesdev
