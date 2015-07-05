@@ -5,6 +5,11 @@ before_script:
   - npm install -g grunt-cli
   - npm install -g bower
   - bower install
+
+after_success:
+ - echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+ - npm start
+
 deploy:
  provider: openshift
  user: ruizdiazchristiand@gmail.com
