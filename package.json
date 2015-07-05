@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "test": "grunt --verbose",
-    "start": "export HOME=/var/lib/openshift/559753b15973ca216b0001cd/app-root/runtime/repo && bower install && node ./bin/www"
+    "start": "node ./bin/www",
+    "postinstall": "if [ -d \"$OPENSHIFT_REPO_DIR\" ]; then (export HOME=\"$OPENSHIFT_REPO_DIR\"/..; bower install) else (bower install) fi"
   },
   "main": "./bin/www",
   "dependencies": {
