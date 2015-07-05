@@ -1,3 +1,5 @@
 
+
+echo '---------------------------  Hook pre build -----------------------------------------'
 export HOME=/var/lib/openshift/559753b15973ca216b0001cd/app-root/runtime/repo; 
 bower install
