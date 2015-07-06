@@ -15,5 +15,7 @@ deploy:
   - mongodb
  app:
    master: vacacionespermanentes
-   dev: vacacionespermanentesdev2
+   dev: vacacionespdev
    development: vacacionespermanentesdev
+ on:
+    all_branches: true
