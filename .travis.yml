@@ -6,15 +6,15 @@ before_script:
   - npm install -g grunt-cli
   - npm install -g bower
   - bower install
+services:
+ - mongodb
 deploy:
  provider: openshift
  user: ruizdiazchristiand@gmail.com
  password: practicasch15
  domain: chrdtm
- services:
-  - mongodb
  app:
    master: vacacionespermanentes
    development: vacacionespermanentesdev
  on:
- 	all_branches: true
+   all_branches: true
