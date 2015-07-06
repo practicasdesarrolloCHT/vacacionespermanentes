@@ -15,5 +15,4 @@ deploy:
   - mongodb
  app:
    master: vacacionespermanentes
-   dev: vacacionespdev
    development: vacacionespermanentesdev
