@@ -16,5 +16,3 @@ deploy:
  app:
    master: vacacionespermanentes
    development: vacacionespermanentesdev
- on:
-   all_branches: true
